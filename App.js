@@ -1,5 +1,5 @@
 import AppLoading from 'expo-app-loading';
-import { ScrollView, StyleSheet, Text, TextInput } from 'react-native';
+import { ScrollView, StyleSheet, Text } from 'react-native';
 import Logo from './components/Logo';
 import Titles from './components/Titles';
 import { 
@@ -21,10 +21,12 @@ import { useFonts } from 'expo-font';
 import IdentityForm from './components/IdentityForm';
 import { useState } from 'react';
 import MedicalForm from './components/MedicalForm';
+import DiseasesCheckboxes from './components/DiseasesCheckboxes';
 
 
 export default function App() {
 
+  const [focusedColor, setFocusedColor] = useState("#000000")
   const [values, setValues] = useState({
     dr:"",
     dateRdv : new Date().toLocaleString(),
@@ -37,8 +39,25 @@ export default function App() {
     profession:"",
     adresse:"",
     codePostal:"",
-    ville:""
-
+    ville:"",
+    medecinTraitant : "",
+    dateDernierExamen:new Date(),
+    changementEtatSante:"",
+    maladies:[],
+    saignementIntervOuAccident:"",
+    priseMedicamentActuelle:"",
+    medicamentsActuels:[],
+    allergieMedicaments:[],
+    fumeur:"",
+    cigarettesParJour:"",
+    enceinte :"",
+    pilule:"",
+    osteoporose:"",
+    medicOsteoporose:"",
+    dateDernierExamDentaire:"",
+    motifConsultation:"",
+    difficulteDentiste:"",
+    listeDifficulteDentiste:"",
   })
 
   let [fontsLoaded, error] = useFonts({
@@ -55,11 +74,20 @@ export default function App() {
     Oswald_700Bold 
   })
 
+  const focusBorderColor = ()=>{
+    setFocusedColor("green")
+  }
+  const blurBorderColor = ()=>{
+    setFocusedColor("#000000")
+  }
+
   if(!fontsLoaded){
     return (
       <AppLoading />
     )
   }
+
+  //console.log(values.medecinTraitant)
 
   return (
     <ScrollView style={styles.container}>
@@ -74,7 +102,8 @@ export default function App() {
       <Titles title="Votre dentité" />
       <IdentityForm values={values} setValues={setValues}/>
       <Titles title="Historique médical" />
-      <MedicalForm/>
+      <MedicalForm values={values} setValues={setValues} focusedColor={focusedColor} focusBorderColor={focusBorderColor} blurBorderColor={blurBorderColor} />
+      <DiseasesCheckboxes values={values} setValues={setValues} focusedColor={focusedColor} focusBorderColor={focusBorderColor} blurBorderColor={blurBorderColor}/>
     </ScrollView>
   );
 }

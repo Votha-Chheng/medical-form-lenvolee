@@ -54,7 +54,7 @@ const IdentityForm = ({values, setValues}) => {
     const selectedDate = newDate || birthDate;
     setBirthDate(selectedDate);
     setValues({...values, dateDeNaissance : birthDate})
-    setShowBirth(false);
+    //setShowBirth(false);
     
   }
 
@@ -229,6 +229,7 @@ const IdentityForm = ({values, setValues}) => {
   );
 }
 
+
 const styles = StyleSheet.create({
   container : {
     paddingLeft:10,
@@ -246,7 +247,6 @@ const styles = StyleSheet.create({
   label : {
     fontSize : 20,
     fontWeight:"bold",
-    //fontFamily: "FrankRuhlLibre_700Bold",
     marginBottom:5,
     paddingRight:10
   },
