@@ -48,6 +48,7 @@ export default function App() {
     maladies:[],
     extraMaladies:[],
     saignementInterventionAccident:false,
+    traitementRadiations:false,
     priseMedicamentActuelle:false,
     medicamentsActuels:[],
     allergieMedicaments:[],
@@ -90,7 +91,9 @@ export default function App() {
     )
   }
 
-  //console.log(values.medecinTraitant)
+  console.log(values.saignementInterventionAccident)
+  console.log(values.traitementRadiations)
+  console.log(values.priseMedicamentActuelle)
 
   return (
     <ScrollView style={styles.container}>
