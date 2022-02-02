@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button, Pressable } from 'react-native';
 import CheckBoxComponent from './CheckBoxComponent';
 
-const DiseasesCheckboxes = ({values, setValues, focusedColor, focusBorderColor, blurBorderColor}) => {
-  const [inputValue, setInputValue] = useState("")
-  const [showNewValues, setShowNewValues] = useState(false)
-  const [extraDiseases, setExtraDiseases] = useState(["blabla", "reblabla"])
+const DiseasesCheckboxes = ({values, setValues}) => {
+  
   const [checkedList, setCheckedList] = useState({
     antidepresseurs:false,
     maladieFoie : false,
@@ -37,12 +35,6 @@ const DiseasesCheckboxes = ({values, setValues, focusedColor, focusBorderColor, 
 
   const handleChangeValues = (isChecked, key)=>{
     setCheckedList({...checkedList, [key]: isChecked}) 
-  }
-
-  const validateNewDisease = ()=> {
-    let arrayDisease = [...extraDiseases, inputValue]
-    setExtraDiseases(arrayDisease)
-    setShowNewValues(false)
   }
 
   return (
@@ -82,74 +74,6 @@ const DiseasesCheckboxes = ({values, setValues, focusedColor, focusBorderColor, 
           <CheckBoxComponent title="Problèmes nerveux " checkedList={checkedList} handleChangeValues={handleChangeValues} slug="problemesNerveux"/>
         </View>
       </View>
-      <View>
-        <Text style={[styles.label, {marginTop:15}]}>
-          Autres :
-        </Text>
-        
-        <View style={styles.flexRow}>
-          {
-            showNewValues ?
-            <View style={{flexDirection:'row'}}>
-              <TextInput 
-                style={[styles.input, {borderColor:`${focusedColor}`}]} 
-                onFocus={focusBorderColor}
-                onBlur={blurBorderColor} 
-                onChangeText={(text)=>setInputValue(text)}
-                placeholder='Ajouter'
-              />
-              <Pressable
-                style={{backgroundColor:"orange", marginLeft:5, paddingHorizontal:5, paddingVertical:10}}
-                onPress={()=>setShowNewValues(false)}
-              >
-                <Text style={{color:"white", fontSize:17.5}}>
-                  ANNULER
-                </Text>
-              </Pressable>
-              <Pressable
-                style={{backgroundColor:"green", marginLeft:5, paddingHorizontal:10, paddingVertical:10}}
-                onPress={validateNewDisease}
-              >
-                <Text style={{color:"white", fontSize:17.5}}>
-                  VALIDER
-                </Text>
-              </Pressable>
-            </View>
-            
-            :
-            <Pressable
-              style={{backgroundColor:"#3798e8", marginLeft:5, paddingHorizontal:10, paddingVertical:10}}
-              onPress={()=>setShowNewValues(true)}
-            >
-              <Text style={{color:"white", fontSize:17.5}}>
-                AJOUTER
-              </Text>
-            </Pressable>
-          }
-          
-        </View>
-        <View style={styles.extraDiseases}> 
-          {
-            extraDiseases.length>0 ? 
-            extraDiseases.map((disease, index)=> (
-              <View style={[styles.flexRow, {marginRight : 10, borderWidth:2, borderColor:"grey", padding:5, paddingBottom:0}]}>
-                <Text style={[styles.label]}>
-                  {disease}
-                </Text>
-                <Pressable 
-                  onPress={()=>console.log("Pressed")}
-                  style={{backgroundColor:"orange", width:30, marginTop:-7.5}}
-                >
-                  <Text style={{color:"white", fontSize:25, textAlign:'center'}}>X</Text>
-                </Pressable>
-              </View>
-              
-            ))
-              
-            : null
-          }
-        </View>
-      </View>
     </View>
   );
 };
@@ -161,17 +85,6 @@ const styles = StyleSheet.create({
     marginBottom:10,
     paddingRight:10,
     letterSpacing:0.75
-  },
-  input:{
-    width:200, 
-    fontSize:20, 
-    padding:5, 
-    marginLeft:5, 
-    borderWidth:2
-  },
-  extraDiseases :{
-    flexDirection:"row",
-    flexWrap:"wrap"
   },
   flexRow : {
     flexDirection:"row", 

@@ -1,5 +1,3 @@
-import { View, Text } from 'react-native';
-import {useEffect, useState} from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const CheckBoxComponent = ({title, checkedList, slug, handleChangeValues}) => {

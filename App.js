@@ -22,6 +22,8 @@ import IdentityForm from './components/IdentityForm';
 import { useState } from 'react';
 import MedicalForm from './components/MedicalForm';
 import DiseasesCheckboxes from './components/DiseasesCheckboxes';
+import OtherDiseases from './components/OtherDiseases';
+import MedicalFormSecond from './components/MedicalFormSecond';
 
 
 export default function App() {
@@ -44,8 +46,9 @@ export default function App() {
     dateDernierExamen:new Date(),
     changementEtatSante:"",
     maladies:[],
-    saignementIntervOuAccident:"",
-    priseMedicamentActuelle:"",
+    extraMaladies:[],
+    saignementInterventionAccident:false,
+    priseMedicamentActuelle:false,
     medicamentsActuels:[],
     allergieMedicaments:[],
     fumeur:"",
@@ -75,10 +78,10 @@ export default function App() {
   })
 
   const focusBorderColor = ()=>{
-    setFocusedColor("green")
+    setFocusedColor("#05bc1b")
   }
   const blurBorderColor = ()=>{
-    setFocusedColor("#000000")
+    setFocusedColor("#4f4d4b")
   }
 
   if(!fontsLoaded){
@@ -103,7 +106,9 @@ export default function App() {
       <IdentityForm values={values} setValues={setValues}/>
       <Titles title="Historique médical" />
       <MedicalForm values={values} setValues={setValues} focusedColor={focusedColor} focusBorderColor={focusBorderColor} blurBorderColor={blurBorderColor} />
-      <DiseasesCheckboxes values={values} setValues={setValues} focusedColor={focusedColor} focusBorderColor={focusBorderColor} blurBorderColor={blurBorderColor}/>
+      <DiseasesCheckboxes values={values} setValues={setValues}/>
+      <OtherDiseases values={values} setValues={setValues} focusedColor={focusedColor} focusBorderColor={focusBorderColor} blurBorderColor={blurBorderColor}/>
+      <MedicalFormSecond values={values} setValues={setValues} />
     </ScrollView>
   );
 }

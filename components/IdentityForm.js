@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View, Pressable, TextInput, SafeAreaView, TouchableOpacity, Animated } from "react-native";
 import {Picker} from '@react-native-picker/picker'
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState, useRef, useEffect } from "react";
 import { dateToString } from "../utils";
 import { RadioButton } from "react-native-paper";
@@ -10,8 +9,6 @@ import PhoneInput from 'react-native-phone-input';
 const IdentityForm = ({values, setValues}) => {
   const [date, setDate] = useState(new Date());
   const [birthDate, setBirthDate] = useState(new Date());
-  const [show, setShow] = useState(false);
-  const [showBirth, setShowBirth] = useState(false);
   const [checked, setChecked] = useState('Madame');
 
   const translation = useRef(new Animated.Value(0)).current
@@ -40,21 +37,14 @@ const IdentityForm = ({values, setValues}) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date
-    setShow(Platform.OS === 'ios')
+    setDate(date)
     setValues({...values, dateRdv:currentDate.toLocaleString()})
   };
-
-  const showMode = (currentMode) => {
-    setShow(true);
-
-  };
-
 
   const onValueChange = (event, newDate)=>{
     const selectedDate = newDate || birthDate;
     setBirthDate(selectedDate);
     setValues({...values, dateDeNaissance : birthDate})
-    //setShowBirth(false);
     
   }
 
@@ -64,27 +54,32 @@ const IdentityForm = ({values, setValues}) => {
         <Text style={styles.label}>
           &#8227; Date de votre rendez-vous :
         </Text>
-        
-        <TouchableOpacity 
-          onPress={showMode} 
-          style={{width:250, height:50, borderColor:`"#a3a3a3`, borderWidth:1, marginLeft:10, padding:2.75, marginHorizontal:"auto"}}
-        >
-          <Text style={styles.dateRdv}>
-            {dateToString(values.dateRdv)}
-          </Text>
-        </TouchableOpacity>
-        {show && (
-          <DateTimePicker
-            //testID="dateTimePicker"
-            value={date}
-            mode="date"
-            is24Hour={true}
-            display="spinner"
-            onChange={onChange}
-            androidVariant = 'iosClone'
-            locale='fr'
-          />
-        )}
+        <DatePicker
+          style={{width: 200}}
+          date={birthDate}
+          mode="date"
+          format="DD/MM/YYYY"
+          minDate="05-01-1900"
+          maxDate={date}
+          confirmBtnText="Choisir"
+          cancelBtnText="Annuler"
+          customStyles={{
+            dateIcon: {
+              display: 'none',
+            },
+            dateText:{
+              fontSize: 20
+            },
+            btnCancel :{
+              color : "#ffffff"
+            },
+            btnConfirm :{
+              color : "#ffffff"
+            },
+
+          }}
+          onDateChange={onChange}
+        />
       </View>
       <View style={styles.flexRow}>
         <Text style={styles.label}>
