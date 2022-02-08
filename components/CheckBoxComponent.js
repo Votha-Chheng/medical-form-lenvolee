@@ -1,20 +1,21 @@
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-const CheckBoxComponent = ({title, checkedList, slug, handleChangeValues}) => {
+const CheckBoxComponent = ({title, maladies, handleChangeValues}) => {
 
     return (
         <BouncyCheckbox
             text={title}
             textStyle={{
                 textDecorationLine: "none",
-                fontWeight:`${checkedList[slug] === true ? "bold" : "normal" }`,
-                color:`${checkedList[slug] === true ? "green" : "black" }`,
+                fontWeight:`${maladies && maladies.includes(title)  ? "bold" : "normal" }`,
+                color:`${maladies && maladies.includes(title) ? "green" : "black" }`,
                 fontSize:20,
-                marginTop:5,
-            }} 
+                marginTop:0,
+            }}
+            style={{marginBottom:5}} 
             fillColor="green" 
             iconStyle={{ borderColor: "black" }}
-            onPress={(isChecked)=> handleChangeValues(isChecked, slug)}
+            onPress={(isChecked)=> handleChangeValues(isChecked, title)}
         />
     );
 };

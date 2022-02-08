@@ -1,31 +1,32 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { RadioButton } from 'react-native-paper';
+import { globalStyles } from '../globalStyles';
 
 const RadioComponent = ({valueState, setValueToTrue, setValueToFalse}) => {
 
   return (
-    <View style={styles.flexRow}>
-      <View style={styles.flexRow}>
+    <View style={globalStyles.flexRow}>
+      <View style={globalStyles.flexRow}>
         <RadioButton
           value="OUI"
-          status={ valueState ? 'checked' : 'unchecked' }
+          status={valueState===undefined? 'unchecked' : valueState ? 'checked' : 'unchecked' }
           onPress={setValueToTrue}
         />
         <Text 
-          style={!valueState ? {fontSize: 15, color:"grey"} : {fontSize: 20, color:"black", fontWeight:"bold"}}
+          style={valueState===undefined || !valueState ? {fontSize: 15, color:"grey"} : {fontSize: 20, color:"green", fontWeight:"bold"}}
         >
           OUI
         </Text>
       </View>
-      <View style={[styles.flexRow, {marginLeft:15}]}>
+      <View style={[globalStyles.flexRow, {marginLeft:15}]}>
         <RadioButton
           value="NON"
-          status={ !valueState ? 'checked' : 'unchecked' }
+          status={valueState===undefined? 'unchecked' : !valueState ? 'checked' : 'unchecked' }
           onPress={setValueToFalse}
         />
         <Text 
-          style={valueState ? {fontSize: 15, color:"grey"} : {fontSize: 20, color:"black", fontWeight:"bold"}}
+          style={valueState===undefined || valueState ? {fontSize: 15, color:"grey"} : {fontSize: 20, color:"green", fontWeight:"bold"}}
         >
           NON
         </Text>
@@ -36,10 +37,3 @@ const RadioComponent = ({valueState, setValueToTrue, setValueToFalse}) => {
 
 export default RadioComponent;
 
-const styles = StyleSheet.create({
-  flexRow : {
-    flexDirection:"row", 
-    alignItems:"center",
-    marginBottom:20
-  },
-});

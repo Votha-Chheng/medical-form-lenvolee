@@ -5,11 +5,14 @@ import { dateToString } from "../utils";
 import { RadioButton } from "react-native-paper";
 import DatePicker from 'react-native-datepicker';
 import PhoneInput from 'react-native-phone-input';
+import { globalStyles } from "../globalStyles";
 
 const IdentityForm = ({values, setValues}) => {
   const [date, setDate] = useState(new Date());
   const [birthDate, setBirthDate] = useState(new Date());
   const [checked, setChecked] = useState('Madame');
+
+  const {dateRdv, dateDeNaissance} = values
 
   const translation = useRef(new Animated.Value(0)).current
   const phone = useRef()
@@ -37,8 +40,8 @@ const IdentityForm = ({values, setValues}) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date
-    setDate(date)
-    setValues({...values, dateRdv:currentDate.toLocaleString()})
+    setDate(currentDate)
+    setValues({...values, dateRdv:currentDate})
   };
 
   const onValueChange = (event, newDate)=>{
@@ -49,14 +52,14 @@ const IdentityForm = ({values, setValues}) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.flexRow}>
-        <Text style={styles.label}>
+    <SafeAreaView style={globalStyles.container}>
+      <View style={globalStyles.flexRow}>
+        <Text style={globalStyles.label}>
           &#8227; Date de votre rendez-vous :
         </Text>
         <DatePicker
           style={{width: 200}}
-          date={birthDate}
+          date={date}
           mode="date"
           format="DD/MM/YYYY"
           minDate="05-01-1900"
@@ -64,11 +67,9 @@ const IdentityForm = ({values, setValues}) => {
           confirmBtnText="Choisir"
           cancelBtnText="Annuler"
           customStyles={{
-            dateIcon: {
-              display: 'none',
-            },
             dateText:{
-              fontSize: 20
+              fontSize: 20,
+              display: `${dateRdv ? "flex":'none'}`
             },
             btnCancel :{
               color : "#ffffff"
@@ -81,8 +82,8 @@ const IdentityForm = ({values, setValues}) => {
           onDateChange={onChange}
         />
       </View>
-      <View style={styles.flexRow}>
-        <Text style={styles.label}>
+      <View style={globalStyles.flexRow}>
+        <Text style={globalStyles.label}>
           &#8227; Vous avez rendez-vous avec le Dr :
          </Text>
          <View style={styles.picker}>
@@ -114,7 +115,7 @@ const IdentityForm = ({values, setValues}) => {
               Madame
             </Text>
           </View>
-          <View style={{flexDirection:"row", alignItems:"center"}}>
+          <View style={globalStyles.flexRow}>
             <RadioButton
               value="Monsieur"
               status={ checked === 'Monsieur' ? 'checked' : 'unchecked' }
@@ -131,16 +132,16 @@ const IdentityForm = ({values, setValues}) => {
           </View>
         </Animated.View>
         <TextInput 
-          style={{alignSelf:"flex-start", borderColor:"#000000", borderWidth: 2, width: 250, height: 45, fontSize: 20, paddingHorizontal:10, marginLeft:7.5}} 
+          style={globalStyles.input} 
           placeholder="Nom de famille"
         />
         <TextInput 
-          style={{alignSelf:"flex-start", borderColor:"#000000", borderWidth: 2, width: 250, height: 45, fontSize: 20, paddingHorizontal:10, marginLeft:7.5}} 
+          style={globalStyles.input} 
           placeholder="Prénom"
         />
       </View> 
-      <View style={{flexDirection:"row", alignItems:"center", marginVertical:20}}>
-        <Text style={styles.label}>&#8227; Date de naissance :</Text>
+      <View style={[globalStyles.flexRow, { marginVertical:20}]}>
+        <Text style={globalStyles.label}>&#8227; Date de naissance :</Text>
         <DatePicker
           style={{width: 200}}
           date={birthDate}
@@ -148,15 +149,13 @@ const IdentityForm = ({values, setValues}) => {
           mode="date"
           format="DD/MM/YYYY"
           minDate="05-01-1900"
-          maxDate={date}
+          maxDate={new Date()}
           confirmBtnText="Choisir"
           cancelBtnText="Annuler"
           customStyles={{
-            dateIcon: {
-              display: 'none',
-            },
             dateText:{
-              fontSize: 20
+              fontSize: 20,
+              display: `${dateDeNaissance ? "flex":'none'}`
             },
             btnCancel :{
               color : "#ffffff"
@@ -169,8 +168,8 @@ const IdentityForm = ({values, setValues}) => {
           onDateChange={onValueChange}
         />
       </View>
-      <View style={styles.flexRow}>
-        <Text style={styles.label}>&#8227; Téléphone :</Text>
+      <View style={globalStyles.flexRow}>
+        <Text style={globalStyles.label}>&#8227; Téléphone :</Text>
         <PhoneInput 
           ref={phone}
           allowZeroAfterCountryCode={true}
@@ -183,36 +182,36 @@ const IdentityForm = ({values, setValues}) => {
           //onChangePhoneNumber={(value)=>console.log(value)}
         />
       </View>
-      <View style={styles.flexRow}>
-        <Text style={styles.label}>&#8227; E-mail :</Text>
+      <View style={globalStyles.flexRow}>
+        <Text style={globalStyles.label}>&#8227; E-mail :</Text>
         <TextInput 
           keyboardType="email-address" 
           autoCapitalize='none'
           style={{borderColor:"grey", borderWidth:2, height:35, width:250, paddingHorizontal:5, fontSize:20}}
         />
       </View>
-      <View style={styles.flexRow}>
-        <Text style={styles.label}>&#8227; Profession :</Text>
+      <View style={globalStyles.flexRow}>
+        <Text style={globalStyles.label}>&#8227; Profession :</Text>
         <TextInput 
           autoCapitalize='none'
           style={{borderColor:"grey", borderWidth:2, height:35, width:250, paddingHorizontal:5, fontSize:20}}
         />
       </View>
       <View>
-        <Text style={styles.label}>&#8227; Adresse :</Text>
+        <Text style={globalStyles.label}>&#8227; Adresse :</Text>
         <TextInput 
           autoCapitalize='none'
           style={{borderColor:"grey", borderWidth:2, height:32, width:"99%", paddingHorizontal:5, fontSize:18, marginBottom :25}}
         />
       </View>
-      <View style={styles.flexRow}>
-        <Text style={styles.label}>&#8227; Ville :</Text>
+      <View style={globalStyles.flexRow}>
+        <Text style={globalStyles.label}>&#8227; Ville :</Text>
         <TextInput 
           style={{borderColor:"grey", borderWidth:2, height:35, width:250, paddingHorizontal:5, fontSize:18}}
         />
       </View>
-      <View style={styles.flexRow}>
-        <Text style={styles.label}>&#8227; Code postal :</Text>
+      <View style={globalStyles.flexRow}>
+        <Text style={globalStyles.label}>&#8227; Code postal :</Text>
         <TextInput 
           keyboardType ="numeric"
           maxLength={5}
@@ -226,10 +225,6 @@ const IdentityForm = ({values, setValues}) => {
 
 
 const styles = StyleSheet.create({
-  container : {
-    paddingLeft:10,
-    paddingTop: 10
-  },
   dateRdv : {
     fontSize : 20,
     padding : 7.5,

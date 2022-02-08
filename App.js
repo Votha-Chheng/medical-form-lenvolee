@@ -19,11 +19,19 @@ import {
 } from '@expo-google-fonts/oswald'
 import { useFonts } from 'expo-font';
 import IdentityForm from './components/IdentityForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MedicalForm from './components/MedicalForm';
 import DiseasesCheckboxes from './components/DiseasesCheckboxes';
 import OtherDiseases from './components/OtherDiseases';
 import MedicalFormSecond from './components/MedicalFormSecond';
+import ExamensDentaires from './components/ExamensDentaires';
+import Gencives from './components/Gencives';
+import Dents from './components/Dents';
+import Machoire from './components/Machoire';
+import HygieneDentaire from './components/HygieneDentaire';
+import Habitudes from './components/Habitudes';
+import Esthetique from './components/Esthetique';
+import Divers from './components/Divers';
 
 
 export default function App() {
@@ -31,7 +39,7 @@ export default function App() {
   const [focusedColor, setFocusedColor] = useState("#000000")
   const [values, setValues] = useState({
     dr:"",
-    dateRdv : new Date().toLocaleString(),
+    dateRdv : "",
     genre : "Madame",
     nom : "",
     prenom:"",
@@ -43,25 +51,71 @@ export default function App() {
     codePostal:"",
     ville:"",
     medecinTraitant : "",
-    dateDernierExamen:new Date(),
+    dateDernierExamen:"",
     changementEtatSante:"",
     maladies:[],
-    extraMaladies:[],
     saignementInterventionAccident:false,
     traitementRadiations:false,
     priseMedicamentActuelle:false,
     medicamentsActuels:[],
-    allergieMedicaments:[],
-    fumeur:"",
+    allergies : false,
+    allergiesListe:[],
+    fumeur:false,
     cigarettesParJour:"",
-    enceinte :"",
-    pilule:"",
-    osteoporose:"",
-    medicOsteoporose:"",
+    enceinte :false,
+    moisDeGrossesse:"",
+    pilule:false,
+    osteoporose:false,
+    medicOsteoporose :[],
     dateDernierExamDentaire:"",
     motifConsultation:"",
-    difficulteDentiste:"",
-    listeDifficulteDentiste:"",
+    difficulteDentiste:false,
+    listeDifficulteDentiste:[],
+    //Gencives
+    dentsEcartes:false,
+    saignementGencive:false,
+    traitementGencive:false,
+    traitementGencivesPar:[],
+    //Dents
+    dentsExtraites:false,
+    causesExtraction : [],
+    dentsRemplacees:undefined,
+    moyenDentRemplacement : [],
+    raisonsNonRemplacementDentsExtraites : [],
+    sensationProthesesActuelles:undefined,
+    utilisationMetaux:undefined,
+    preferencesUtilisationMetaux:[],
+    dentsSensibles:undefined,
+    listeSensibilite : [],
+    //Mâchoires
+    serrementGrincementDents:undefined,
+    craquementClaquementDouleurOuvertureMachoire:undefined,
+    difficulteAvalerMacherCoteUnique:undefined,
+    //Hygiène dentaire
+    typeBrosseADent:[],
+    momentsBrossageDents:[],
+    rythmeChangementBrosseAdent:undefined,
+    utilisationFilDentaireBrossette:undefined,
+    //Habitudes
+    habitudes:[],
+    mauvaiseHaleine : undefined,
+    //Dentisterie esthétique
+    dentsMemeCouleurs:undefined,
+    souhaitDentsPlusBlanches:undefined,
+    satisfactionDentsGencives: undefined,
+    mainDevantBoucheSourire:undefined,
+    souhaitsChangementOuiNon:undefined,
+    souhaitsChangement:"",
+    //Divers
+    appareilDentaireUneFois:undefined,
+    preoccupationDentsOuiNon:undefined,
+    preoccupationDents:"",
+    modifierDentsOuiNon:undefined,
+    modifierDents:"",
+    anxieuxSoinsDentaires:undefined,
+    commentConnaissezVousLeCabinet:"",
+    autresRemarquesUtilesOuiNon:undefined,
+    autresRemarquesUtiles:""
   })
 
   let [fontsLoaded, error] = useFonts({
@@ -78,6 +132,10 @@ export default function App() {
     Oswald_700Bold 
   })
 
+  useEffect(()=>{
+    console.log(values.anxieuxSoinsDentaires)
+  },[values.anxieuxSoinsDentaires])
+
   const focusBorderColor = ()=>{
     setFocusedColor("#05bc1b")
   }
@@ -90,10 +148,6 @@ export default function App() {
       <AppLoading />
     )
   }
-
-  console.log(values.saignementInterventionAccident)
-  console.log(values.traitementRadiations)
-  console.log(values.priseMedicamentActuelle)
 
   return (
     <ScrollView style={styles.container}>
@@ -112,6 +166,16 @@ export default function App() {
       <DiseasesCheckboxes values={values} setValues={setValues}/>
       <OtherDiseases values={values} setValues={setValues} focusedColor={focusedColor} focusBorderColor={focusBorderColor} blurBorderColor={blurBorderColor}/>
       <MedicalFormSecond values={values} setValues={setValues} />
+      <Titles title="Historique dentaire" />  
+      <ExamensDentaires values={values} setValues={setValues} focusedColor={focusedColor} focusBorderColor={focusBorderColor} blurBorderColor={blurBorderColor}/>
+      <Gencives values={values} setValues={setValues}/>
+      <Dents values={values} setValues={setValues}/>
+      <Machoire values={values} setValues={setValues}/>
+      <HygieneDentaire values={values} setValues={setValues} />
+      <Habitudes values={values} setValues={setValues} />
+      <Esthetique values={values} setValues={setValues} />
+      <Divers values={values} setValues={setValues}/>
+      <Titles title="Valider les réponses du questionnaire"/>
     </ScrollView>
   );
 }

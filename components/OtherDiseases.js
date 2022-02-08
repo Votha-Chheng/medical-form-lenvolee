@@ -1,13 +1,16 @@
-import { Pressable, ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
 import { useEffect, useState } from 'react';
+import { globalStyles } from '../globalStyles';
 
-const OtherDiseases = (values, setValues, focusedColor, focusBorderColor, blurBorderColor)=>{
+const OtherDiseases = ({values, setValues, focusedColor, focusBorderColor, blurBorderColor})=>{
 
   const [inputValue, setInputValue] = useState("")
   const [showNewValues, setShowNewValues] = useState(false)
   const [showDelete, setShowDelete] = useState(false)
   const [deleteMode, setDeleteMode] = useState(false)
   const [extraDiseases, setExtraDiseases] = useState([])
+
+  const {maladies} = values
 
   useEffect(()=>{
     extraDiseases.length>0 ? setShowDelete(true) : setShowDelete(false)
@@ -18,28 +21,31 @@ const OtherDiseases = (values, setValues, focusedColor, focusBorderColor, blurBo
   }, [extraDiseases])
 
   const validateNewDisease = ()=> {
-    let arrayDisease = [...extraDiseases, inputValue]
-    setExtraDiseases(arrayDisease)
+    setExtraDiseases([...extraDiseases, inputValue])
+    setValues({...values, maladies:[...maladies, inputValue]})
+    setInputValue("")
     setShowNewValues(false)
   }
 
   const deleteDisease = (event)=>{
-    let temp = extraDiseases.filter((disease) => disease !== (event._dispatchInstances.memoizedProps.children[0].props.children).toString())
+    let temp = extraDiseases.filter((disease) => disease !== (event._dispatchInstances.memoizedProps.children[0].props.children))
+    let tempState = maladies.filter((disease) => disease !== (event._dispatchInstances.memoizedProps.children[0].props.children))
+    setValues({...values, maladies: tempState})
     setExtraDiseases(temp)
   }
 
   return (
     <ScrollView style={{marginBottom:15}}>
-      <Text style={[styles.label, {marginTop:15}]}>
+      <Text style={[globalStyles.label, {marginTop:15}]}>
         Autres :
       </Text>
     
-      <View style={styles.flexRow}>
+      <View style={globalStyles.flexRow}>
         {
           showNewValues ?
           <View style={{flexDirection:'row'}}>
             <TextInput
-              style={[styles.input, {borderColor:`${focusedColor}`}]} 
+              style={[globalStyles.input, {borderColor:`${focusedColor}`}]} 
               onFocus={focusBorderColor}
               onBlur={blurBorderColor} 
               onChangeText={(text)=>setInputValue(text)}
@@ -64,7 +70,7 @@ const OtherDiseases = (values, setValues, focusedColor, focusBorderColor, blurBo
             </TouchableOpacity>
           </View>
           :
-          <View style={[styles.flexRow, {marginBottom:0}]}>
+          <View style={[globalStyles.flexRow, {marginBottom:0}]}>
             <TouchableOpacity
               style={{backgroundColor:`${deleteMode ? "#e5e2de": "#3798e8"}`, marginLeft:5, paddingHorizontal:10, paddingVertical:10}}
               onPress={()=>setShowNewValues(true)}
@@ -90,7 +96,7 @@ const OtherDiseases = (values, setValues, focusedColor, focusBorderColor, blurBo
           </View>  
         }
       </View>
-      <View style={styles.extraDiseases}> 
+      <View style={globalStyles.extraDiseases}> 
         {
           extraDiseases.length>0 ? 
           extraDiseases.map((disease, index)=> (
@@ -112,28 +118,9 @@ const OtherDiseases = (values, setValues, focusedColor, focusBorderColor, blurBo
 }
 
 const styles = StyleSheet.create({
-  label : {
-    fontSize : 20,
-    fontWeight:"bold",
-    marginBottom:10,
-    paddingRight:10,
-    letterSpacing:0.75
-  },
-  input:{
-    width:200, 
-    fontSize:20, 
-    padding:5, 
-    marginLeft:5, 
-    borderWidth:2
-  },
   extraDiseases :{
     flexDirection:"row",
     flexWrap:"wrap"
-  },
-  flexRow : {
-    flexDirection:"row", 
-    alignItems:"center",
-    marginBottom:20
   },
   deletable : {
     backgroundColor:"red",
