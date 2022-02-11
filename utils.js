@@ -1,5 +1,5 @@
 export const dateToString = (date)=>{
-  let dateToString = "", jour = "", mois = "", annee = ""
+  let jour = "", mois = "", annee = ""
   const arrayDate = date.split(" ")
 
   switch (arrayDate[0]) {
@@ -65,7 +65,7 @@ export const dateToString = (date)=>{
       break
   }
 
-  annee = arrayDate[4]
+  annee = arrayDate[3]
 
   return `${jour} ${arrayDate[2]} ${mois} ${annee}`
 }

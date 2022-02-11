@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 import SubTitles from './SubTitles';
 import { globalStyles } from '../globalStyles';
@@ -18,9 +18,9 @@ const Habitudes = ({values, setValues}) => {
   }
 
   return (
-    <View>
+    <View style={globalStyles.container}>
       <SubTitles title="HABITUDES" />
-      <View style={globalStyles.container}>
+      <View>
         <View>
           <HabitudesCheckBoxes 
             arrayState={habitudes} values={values} keyName="habitudes" setValues={setValues} />
@@ -44,4 +44,3 @@ const Habitudes = ({values, setValues}) => {
 
 export default Habitudes;
 
-const styles = StyleSheet.create({});

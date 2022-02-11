@@ -22,7 +22,7 @@ export const globalStyles = StyleSheet.create({
     fontSize:20, 
     paddingHorizontal:5, 
     marginLeft:7.5, 
-    borderWidth:1
+    borderWidth:2
   }
 });
 

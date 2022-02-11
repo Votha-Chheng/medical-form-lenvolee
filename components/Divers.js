@@ -1,16 +1,13 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import React from 'react';
 import SubTitles from './SubTitles';
 import { globalStyles } from '../globalStyles';
 import Label from './Label';
 import RadioComponent from './RadioComponent';
-import TextAreaInput from './TextAreaInput';
 import MultipleRadioComponent from './MultipleRadioComponent';
+import TextAreatAjouter from './TextAreatAjouter';
 
 const Divers = ({values, setValues}) => {
-
-  const [connaissanceCabinetInput, setConnaissanceCabinetInput] = useState("")
-  const [modifier, setModofier] = useState(false)
 
   const {
     appareilDentaireUneFois,
@@ -48,46 +45,37 @@ const Divers = ({values, setValues}) => {
           setValueToTrue={()=>setValueToTrue("appareilDentaireUneFois")}
           setValueToFalse={()=>setValueToFalse("appareilDentaireUneFois")}
         />
+        
       </View>
-      <View>
-        <Label
-          question="Avez-vous des préoccuppations particulières convernant vos dents ?"
-          statement={preoccupationDentsOuiNon}
-        />
-        <RadioComponent
-          valueState={preoccupationDentsOuiNon}
-          setValueToTrue={()=>setValueToTrue("preoccupationDentsOuiNon")}
-          setValueToFalse={()=>setValueToFalse("preoccupationDentsOuiNon", "preoccupationDents")}
-        />
-        <TextAreaInput
+      <View style={{marginBottom:50}}>
+        <TextAreatAjouter
           values={values}
           setValues={setValues}
-          question="Décrivez ces préoccupations :"
-          textState = {preoccupationDents}
-          ouiNonState ={preoccupationDentsOuiNon}
-          keyName="preoccupationDents"
+          questionOuiNon="Avez-vous des préoccuppations particulières convernant vos dents ?"
+          questionDescription="Décrivez ces préoccupations "
+          inputPlaceholder="Décrivez ici ces préocuppations"
+          stateOuiNon={preoccupationDentsOuiNon}
+          stateOuiNonToString ="preoccupationDentsOuiNon"
+          stateNext = {preoccupationDents}
+          stateNextToString = "preoccupationDents"
         />
       </View>
-      <View>
-        <Label
-          question="Idéalement, aimeriez-vous modifier quelque chose dans votre bouche ?"
-          statement={modifierDentsOuiNon}
-        />
-        <RadioComponent
-          valueState={modifierDentsOuiNon}
-          setValueToTrue={()=>setValueToTrue("modifierDentsOuiNon")}
-          setValueToFalse={()=>setValueToFalse("modifierDentsOuiNon", "modifierDents")}
-        />
-        <TextAreaInput
+      
+      <View style={{marginBottom:50}}>
+        <TextAreatAjouter
           values={values}
           setValues={setValues}
-          question="Décrivez ce que vous aimeriez  modifier :"
-          textState = {modifierDents}
-          ouiNonState ={modifierDentsOuiNon}
-          keyName="modifierDents"
+          questionOuiNon="Idéalement, aimeriez-vous modifier quelque chose dans votre bouche ?"
+          questionDescription="Quelles modifications aimeriez-vous apporter dans votre bouche ?"
+          inputPlaceholder="Décrivez ici modifications..."
+          stateOuiNon={modifierDentsOuiNon}
+          stateOuiNonToString ="modifierDentsOuiNon"
+          stateNext = {modifierDents}
+          stateNextToString = "modifierDents"
         />
       </View>
-      <View style={{marginTop:25}}>
+
+      <View style={{marginBottom:50}}>
         <Label
           question="Etes-vous anxieuse/anxieux à l’idée de réaliser des soins dentaires ?"
           statement={anxieuxSoinsDentaires}
@@ -98,40 +86,32 @@ const Divers = ({values, setValues}) => {
           handleOnPress = {changeAnxieuxSoins}
         />
       </View>
-      <View style={{marginTop:25}}>
-        <TextAreaInput
+      <View style={{marginBottom:50}}>
+        <TextAreatAjouter
           values={values}
           setValues={setValues}
-          question="Comment avez-vous connu le cabinet ?"
-          textState = {commentConnaissezVousLeCabinet}
-          ouiNonState = "nonConditional"
-          keyName="commentConnaissezVousLeCabinet"
+          questionDescription="Comment avez-vous connu le cabinet ?"
+          inputPlaceholder="Décrivez ici par quel(s) moyen(s) vous avez connu ce cabinet..."
+          stateNext = {commentConnaissezVousLeCabinet}
+          stateNextToString = "commentConnaissezVousLeCabinet"
+          unconditional={true}
         />
       </View>
-      <View style={{marginTop:25}}>
-        <Label
-          question="Avez-vous des remarques utiles à nous faire passer ?"
-          statement={autresRemarquesUtilesOuiNon}
-        />
-        <RadioComponent
-          valueState={autresRemarquesUtilesOuiNon}
-          setValueToTrue={()=>setValueToTrue("autresRemarquesUtilesOuiNon")}
-          setValueToFalse={()=>setValueToFalse("autresRemarquesUtilesOuiNon", "autresRemarquesUtiles")}
-        />
-        <TextAreaInput
+      <View style={{marginBottom:50}}>
+        <TextAreatAjouter
           values={values}
           setValues={setValues}
-          question="Quelles sont ces remarques ?"
-          textState = {autresRemarquesUtiles}
-          ouiNonState ={autresRemarquesUtilesOuiNon}
-          keyName="autresRemarquesUtiles"
+          questionOuiNon="Avez-vous des remarques utiles à nous faire passer ?"
+          questionDescription="Quelles sont ces remarques ?"
+          inputPlaceholder="Décrivez ici vos remarques..."
+          stateOuiNon={autresRemarquesUtilesOuiNon}
+          stateOuiNonToString ="autresRemarquesUtilesOuiNon"
+          stateNext = {autresRemarquesUtiles}
+          stateNextToString = "autresRemarquesUtiles"
         />
-      </View>
-      
+      </View>  
     </View>
   );
 };
 
 export default Divers;
-
-const styles = StyleSheet.create({});

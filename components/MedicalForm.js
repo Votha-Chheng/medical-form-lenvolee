@@ -1,13 +1,19 @@
 import { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View, TextInput } from "react-native";
+import { SafeAreaView, View, TextInput } from "react-native";
 import DatePicker from "react-native-datepicker";
 import { globalStyles } from "../globalStyles";
+import Label from "./Label";
+import RadioComponent from "./RadioComponent";
 
-const MedicalForm = ({values, setValues, focusedColor, focusBorderColor, blurBorderColor}) => {
+const MedicalForm = ({values, setValues}) => {
 
   const [lastMedicAppointment, setLastMedicAppointment] = useState(new Date())
 
-  const {dateDernierExamen} = values
+  const {
+    dateDernierExamen, 
+    medecinTraitant, 
+    changementEtatSante
+  } = values
 
   const onDateChange = (event, newDate)=>{
     const selectedDate = newDate || lastMedicAppointment;
@@ -15,26 +21,32 @@ const MedicalForm = ({values, setValues, focusedColor, focusBorderColor, blurBor
     setValues({...values, dateDernierExamen : lastMedicAppointment})
   }
 
+  const setValueToTrue = (keyName)=>{
+    setValues({...values, [keyName]: true})
+  }
+  const setValueToFalse = (keyName)=>{
+    setValues({...values, [keyName]: false})
+  }
+
   return (
-    <SafeAreaView>
-      <View style={globalStyles.flexRow}>
-        <Text style={globalStyles.label}>
-          &#8227; Nom du médecin traitant :
-        </Text>
+    <SafeAreaView style={globalStyles.container}>
+      <View style={[globalStyles.flexRow, {marginTop:15}]}>
+        <Label
+          question="Nom du médecin traitant "
+          statement={medecinTraitant}
+        />
         <TextInput 
-          value={values.medecinTraitant}
           onChangeText={(name)=>setValues({...values, medecinTraitant:name})}
-          style={[globalStyles.input, {borderColor:`${focusedColor}`}]} 
-          onFocus={focusBorderColor}
-          onBlur={blurBorderColor}
+          style={[globalStyles.input, {borderColor:`${medecinTraitant===undefined? "grey":"green"}`, width:200}]} 
         />
       </View>
-      <View style={globalStyles.flexRow}>
-        <Text style={globalStyles.label}>
-          &#8227; Date du dernier examen médical (à quelques semaines près) :
-        </Text>
+      <View style={{marginBottom:20}}>
+        <Label
+          question="Date du dernier examen médical (à quelques semaines près) "
+          statement={dateDernierExamen}
+        />
         <DatePicker
-          style={{width: 150}}
+          style={{width: 200, marginLeft:20}}
           date={lastMedicAppointment}
           androidMode="spinner"
           mode="date"
@@ -44,9 +56,14 @@ const MedicalForm = ({values, setValues, focusedColor, focusBorderColor, blurBor
           confirmBtnText="Choisir"
           cancelBtnText="Annuler"
           customStyles={{
+            dateInput:{
+              backgroundColor:`${dateDernierExamen ? "green":"#e5e2de"}`,
+              width:200
+            },
             dateText:{
               fontSize: 20,
-              display: `${dateDernierExamen ? "flex":'none'}`
+              display: `${dateDernierExamen ? "flex":'none'}`,
+              color:"white"
             },
             btnCancel :{
               color : "#ffffff"
@@ -58,10 +75,19 @@ const MedicalForm = ({values, setValues, focusedColor, focusBorderColor, blurBor
           onDateChange={onDateChange}
         />
       </View>
-      
+      <View>
+        <Label
+          question="Avez-vous connu des changements dans votre état de santé depuis un an ? "
+          statement={changementEtatSante}
+        />
+        <RadioComponent
+          valueState ={changementEtatSante}
+          setValueToTrue={()=>setValueToTrue("changementEtatSante")}
+          setValueToFalse={()=>setValueToFalse("changementEtatSante")}
+        />
+      </View>
     </SafeAreaView>
   );
 }
-
 
 export default MedicalForm;

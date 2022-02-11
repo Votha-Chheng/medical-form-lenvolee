@@ -1,47 +1,55 @@
-import { StyleSheet, Text, View, Pressable, TextInput, SafeAreaView, TouchableOpacity, Animated } from "react-native";
+import { StyleSheet, Text, View, TextInput, SafeAreaView, Animated } from "react-native";
 import {Picker} from '@react-native-picker/picker'
 import { useState, useRef, useEffect } from "react";
-import { dateToString } from "../utils";
 import { RadioButton } from "react-native-paper";
 import DatePicker from 'react-native-datepicker';
-import PhoneInput from 'react-native-phone-input';
 import { globalStyles } from "../globalStyles";
+import Label from "./Label";
 
 const IdentityForm = ({values, setValues}) => {
   const [date, setDate] = useState(new Date());
   const [birthDate, setBirthDate] = useState(new Date());
-  const [checked, setChecked] = useState('Madame');
 
-  const {dateRdv, dateDeNaissance} = values
+  const {
+    dateRdv, 
+    dateDeNaissance,
+    genre,
+    nom,
+    prenom,
+    tel,
+    email,
+    profession,
+    adresse,
+    codePostal,
+    ville,
+  } = values
 
   const translation = useRef(new Animated.Value(0)).current
-  const phone = useRef()
 
   const switchToBottom = ()=>{
     Animated.timing(translation, {
-      toValue: -35,
+      toValue: -33,
       duration: 250,
       useNativeDriver: true
     }).start()
   }
   const switchToTop = ()=>{
     Animated.timing(translation, {
-      toValue: 0,
+      toValue: 3,
       duration: 250,
       useNativeDriver: true
     }).start()
   }
     
   useEffect(() => {
-    checked === "Monsieur" ? switchToBottom() : switchToTop()
-  }, [checked])
+    genre === "Monsieur" ? switchToBottom() : switchToTop()
+  }, [genre])
 
   
-
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date
     setDate(currentDate)
-    setValues({...values, dateRdv:currentDate})
+    setValues({...values, dateRdv:currentDate.toLocaleDateString("fr-FR")})
   };
 
   const onValueChange = (event, newDate)=>{
@@ -49,6 +57,28 @@ const IdentityForm = ({values, setValues}) => {
     setBirthDate(selectedDate);
     setValues({...values, dateDeNaissance : birthDate})
     
+  }
+
+  const onValidateNumber = (text)=>{
+    if(text.startsWith(0) && text.length === 10){
+      setValues({...values, tel:text})
+    } else {
+      setValues({...values, tel:undefined})
+    }
+  }
+  const onValidateEmail = (text)=>{
+    if(text.includes("@") && text.includes(".")){
+      setValues({...values, email:text})
+    } else {
+      setValues({...values, email:undefined})
+    }
+  }
+  const onValidateCodePostal = (text)=>{
+    if(text.length>4){
+      setValues({...values, codePostal:text})
+    } else {
+      setValues({...values, codePostal:undefined})
+    }
   }
 
   return (
@@ -99,15 +129,15 @@ const IdentityForm = ({values, setValues}) => {
       </View>
       <View style={{flexDirection:"row", marginTop : 15}}>
         <Text style={{fontSize:20, marginTop:7}} >&#8227;</Text>
-        <Animated.View style={{marginVertical : 5, transform : [{translateY : translation}], width:120}}>
+        <Animated.View style={{marginVertical : 5, marginRight:10, width:125, transform : [{translateY : translation}]}}>
           <View style={{flexDirection:"row", alignItems:"center"}}>
             <RadioButton
               value="Madame"
-              status={ checked === 'Madame' ? 'checked' : 'unchecked' }
-              onPress={() => setChecked('Madame')}
+              status={ genre === 'Madame' ? 'checked' : 'unchecked' }
+              onPress={() => setValues({...values, genre:'Madame', enceinte:undefined})}
               />
             <Text 
-              style={checked === 'Monsieur' ? 
+              style={genre === 'Monsieur' ? 
               {fontSize: 15, color:"grey"} 
               : 
               {fontSize: 20, color:"black", fontWeight:"bold"}}
@@ -118,11 +148,11 @@ const IdentityForm = ({values, setValues}) => {
           <View style={globalStyles.flexRow}>
             <RadioButton
               value="Monsieur"
-              status={ checked === 'Monsieur' ? 'checked' : 'unchecked' }
-              onPress={() => setChecked('Monsieur')}
+              status={ genre === 'Monsieur' ? 'checked' : 'unchecked' }
+              onPress={() => setValues({...values, genre:'Monsieur', enceinte:null, pilule:""})}
               />
             <Text 
-              style={checked === 'Madame' ? 
+              style={genre === 'Madame' ? 
               {fontSize: 15, color:"grey" } 
               : 
               {fontSize: 20, color:"black", fontWeight:"bold"}}
@@ -132,16 +162,21 @@ const IdentityForm = ({values, setValues}) => {
           </View>
         </Animated.View>
         <TextInput 
-          style={globalStyles.input} 
+          style={[globalStyles.input,{borderWidth:2, width:250, marginLeft:25, marginTop:5, borderColor:`${nom === undefined ? "red":"green"}`}]} 
           placeholder="Nom de famille"
+          onChangeText={(text)=>setValues({...values, nom:text})}
         />
         <TextInput 
-          style={globalStyles.input} 
+          style={[globalStyles.input, {borderWidth:2, width:250, marginTop:5, borderColor:`${prenom === undefined ? "red":"green"}`}]} 
           placeholder="Prénom"
+          onChangeText={(text)=>setValues({...values, prenom:text})}
         />
       </View> 
       <View style={[globalStyles.flexRow, { marginVertical:20}]}>
-        <Text style={globalStyles.label}>&#8227; Date de naissance :</Text>
+        <Label
+          question="Date de naissance "
+          statement={dateDeNaissance}
+        />
         <DatePicker
           style={{width: 200}}
           date={birthDate}
@@ -155,7 +190,11 @@ const IdentityForm = ({values, setValues}) => {
           customStyles={{
             dateText:{
               fontSize: 20,
-              display: `${dateDeNaissance ? "flex":'none'}`
+              display: `${dateDeNaissance ? "flex":'none'}`,
+              color: "white"
+            },
+            dateInput:{
+              backgroundColor:`${dateDeNaissance? "green":"#e5e2de"}`
             },
             btnCancel :{
               color : "#ffffff"
@@ -169,53 +208,70 @@ const IdentityForm = ({values, setValues}) => {
         />
       </View>
       <View style={globalStyles.flexRow}>
-        <Text style={globalStyles.label}>&#8227; Téléphone :</Text>
-        <PhoneInput 
-          ref={phone}
-          allowZeroAfterCountryCode={true}
-          accessibilityLabel="Champ pour le numéro de téléphone"
-          initialCountry="fr"
-          onPressFlag={()=>null}
-          isValidNumber = {(isValidNumber)=>console.log("isValidNumber :", isValidNumber)}
-          textStyle={{fontSize:17.5, marginTop:2.5}}
-          style={{borderColor:"grey", borderWidth:2, height:40, width:210, paddingHorizontal:7.5}}
-          //onChangePhoneNumber={(value)=>console.log(value)}
+        <Label
+          question="Téléphone "
+          statement={tel}
+        />
+        <TextInput
+          keyboardType="numeric"
+          style={[globalStyles.input, {width:125, borderColor:`${tel===undefined? "grey":"green"}`}]}
+          maxLength={10}
+          onChangeText={(text)=>onValidateNumber(text)}
         />
       </View>
       <View style={globalStyles.flexRow}>
-        <Text style={globalStyles.label}>&#8227; E-mail :</Text>
+        <Label
+          question="E-mail "
+          statement={email}
+        />
         <TextInput 
           keyboardType="email-address" 
           autoCapitalize='none'
-          style={{borderColor:"grey", borderWidth:2, height:35, width:250, paddingHorizontal:5, fontSize:20}}
+          style={[globalStyles.input, {borderColor:`${email===undefined? "grey":"green"}`, width:250}]}
+          onChangeText={(text)=>onValidateEmail(text)}
         />
       </View>
       <View style={globalStyles.flexRow}>
-        <Text style={globalStyles.label}>&#8227; Profession :</Text>
+        <Label
+          question="Profession "
+          statement={profession}
+          onChangeText={(text)=>setValues({...values, profession:text})}
+        />
         <TextInput 
-          autoCapitalize='none'
-          style={{borderColor:"grey", borderWidth:2, height:35, width:250, paddingHorizontal:5, fontSize:20}}
+          style={[globalStyles.input, {borderColor:`${profession===undefined? "grey":"green"}`, width:250}]}
+          onChangeText={(text)=>setValues({...values, profession:text})}
         />
       </View>
-      <View>
-        <Text style={globalStyles.label}>&#8227; Adresse :</Text>
+      <View style={{marginBottom:20}}>
+        <Label
+          question="Adresse "
+          statement={adresse}
+        />
         <TextInput 
-          autoCapitalize='none'
-          style={{borderColor:"grey", borderWidth:2, height:32, width:"99%", paddingHorizontal:5, fontSize:18, marginBottom :25}}
+          style={[globalStyles.input, {borderColor:`${adresse===undefined? "grey":"green"}`, width:"95%"}]}
+          onChangeText={(text)=>(adresse && adresse.length>1) || text.length>1 ? setValues({...values, adresse:text}) : setValues({...values, adresse:undefined})}
         />
       </View>
       <View style={globalStyles.flexRow}>
-        <Text style={globalStyles.label}>&#8227; Ville :</Text>
+        <Label
+          question="Ville "
+          statement={ville}
+        />
         <TextInput 
-          style={{borderColor:"grey", borderWidth:2, height:35, width:250, paddingHorizontal:5, fontSize:18}}
+          style={[globalStyles.input, {borderColor:`${ville===undefined? "grey":"green"}`, width:300}]}
+          onChangeText={(text)=>text.length<1 ? setValues({...values, ville:undefined}) : setValues({...values, ville:text})}
         />
       </View>
       <View style={globalStyles.flexRow}>
-        <Text style={globalStyles.label}>&#8227; Code postal :</Text>
+        <Label
+          question="Code postal "
+          statement={codePostal}
+        />
         <TextInput 
           keyboardType ="numeric"
           maxLength={5}
-          style={{borderColor:"grey", borderWidth:2, height:35, width:65, paddingHorizontal:5, fontSize:18, textAlign:'center',}}
+          style={[globalStyles.input, {borderColor:`${codePostal===undefined? "grey":"green"}`, width:65}]}
+          onChangeText={(text)=>onValidateCodePostal(text)}
         />
       </View>
     </SafeAreaView>  

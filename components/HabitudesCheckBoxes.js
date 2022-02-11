@@ -1,10 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import React, { useState } from 'react';
 import RadioComponent from './RadioComponent';
 import { globalStyles } from '../globalStyles';
 import Label from './Label';
-import style from 'react-native-datepicker/style';
+
 
 const HabitudesCheckBoxes = ({
   // arrayState, values, keyName, setValues

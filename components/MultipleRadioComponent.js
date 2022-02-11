@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import React from 'react';
 import { globalStyles } from '../globalStyles';
 import { RadioButton } from 'react-native-paper';
@@ -33,4 +33,3 @@ const MultipleRadioComponent = ({arrayChoix, valueState, handleOnPress}) => {
 
 export default MultipleRadioComponent;
 
-const styles = StyleSheet.create({});

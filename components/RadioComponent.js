@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import React from 'react';
 import { RadioButton } from 'react-native-paper';
 import { globalStyles } from '../globalStyles';
@@ -14,7 +14,7 @@ const RadioComponent = ({valueState, setValueToTrue, setValueToFalse}) => {
           onPress={setValueToTrue}
         />
         <Text 
-          style={valueState===undefined || !valueState ? {fontSize: 15, color:"grey"} : {fontSize: 20, color:"green", fontWeight:"bold"}}
+          style={valueState===undefined || !valueState ? {fontSize: 20, color:"grey"} : {fontSize: 20, color:"green", fontWeight:"bold"}}
         >
           OUI
         </Text>
@@ -26,7 +26,7 @@ const RadioComponent = ({valueState, setValueToTrue, setValueToFalse}) => {
           onPress={setValueToFalse}
         />
         <Text 
-          style={valueState===undefined || valueState ? {fontSize: 15, color:"grey"} : {fontSize: 20, color:"green", fontWeight:"bold"}}
+          style={valueState===undefined || valueState ? {fontSize: 20, color:"grey"} : {fontSize: 20, color:"green", fontWeight:"bold"}}
         >
           NON
         </Text>

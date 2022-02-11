@@ -1,27 +1,38 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import DatePicker from 'react-native-datepicker';
 import RadioComponent from './RadioComponent';
 import QuestionsAutres from './QuestionsAutres';
-import {globalStyles} from '../globalStyles'
+import {globalStyles} from '../globalStyles';
+import Label from './Label'
+import TextAreatAjouter from './TextAreatAjouter';
 
 const ExamensDentaires = ({values, setValues, focusedColor, focusBorderColor, blurBorderColor}) => {
   const [dateLastExam, setDateLastExam] = useState(new Date())
   const [difficultesInput, setDifficultesInput] = useState("")
-  const [difficultesListe, setDifficultesListe] = useState([])
-
-  const {dateDernierExamDentaire, difficulteDentiste, listeDifficulteDentiste} = values
+  null
+  const {
+    dateDernierExamDentaire, 
+    motifConsultation,
+    difficulteDentiste, 
+    listeDifficulteDentiste
+  } = values
 
   const onDateChange = (event, newDate)=>{
     setDateLastExam(newDate)
     setValues({...values, dateDernierExamDentaire : dateLastExam})
   }
 
-  const setValueToTrue = (keyName)=>{
-    setValues({...values, [keyName]: true})
+  const setValueToTrue = (keyName, keyToBeUndefined = null)=>{
+    if(keyToBeUndefined!==null){
+      setValues({...values, [keyName]: true, [keyToBeUndefined]:undefined})
+    } else {
+      setValues({...values, [keyName]: true})
+    }
+    
   }
-  const setValueToFalse = (keyName, nextKey, isArray, setExtraArray)=>{
-    if(isArray){
+  const setValueToFalse = (keyName, nextKey, isArray, setExtraArray=null)=>{
+    if(isArray && setExtraArray!==null){
       setExtraArray([])
     }
     setValues({...values, [keyName]: false, [nextKey]:`${isArray? []: null}`})
@@ -29,27 +40,38 @@ const ExamensDentaires = ({values, setValues, focusedColor, focusBorderColor, bl
 
   const addDifficulty  = ()=>{
     if(difficultesInput.length>0){
-      setValues({...values, listeDifficulteDentiste: [...listeDifficulteDentiste, difficultesInput]})
-      setDifficultesListe([...difficultesListe, difficultesInput])
-      setDifficultesInput("")
-    }  
+      if(listeDifficulteDentiste === undefined){
+        let array = [difficultesInput]
+        setValues({...values, listeDifficulteDentiste:array})
+        setDifficultesInput("")
+      } else {
+        setValues({...values, listeDifficulteDentiste: [...listeDifficulteDentiste, difficultesInput]})
+        setDifficultesInput("")
+      }  
+    }
   }
 
   const deleteDifficulty = (event)=>{
-    let temp = difficultesListe.filter(difficulty => difficulty !== event._dispatchInstances.memoizedProps.children[0][0].props.children)
     let tempState = listeDifficulteDentiste.filter(difficulty => difficulty !== event._dispatchInstances.memoizedProps.children[0][0].props.children)
-    setValues({...values, listeDifficulteDentiste: tempState})
-    setDifficultesListe(temp)
+    if(tempState.length<1){
+      setValues({...values, listeDifficulteDentiste: undefined})
+
+    } else {
+      setValues({...values, listeDifficulteDentiste: tempState})
+
+    }
+    
   }
 
   return (
-    <View style={{marginTop:30}}>
-      <View  style={[globalStyles.flexRow, {marginTop:30}]}>
-        <Text style={globalStyles.label} >
-          &#8227; A quand remonte votre dernier examen dentaire ?
-        </Text>
+    <View style={[globalStyles.container, {marginTop:10}]}>
+      <View style={{marginBottom:50}}>
+        <Label
+          question="A quand remonte votre dernier examen dentaire ? "
+          statement={dateDernierExamDentaire}
+        />
         <DatePicker
-          style={{width: 200}}
+          style={{width: 200, marginLeft:20}}
           date={dateLastExam}
           androidMode="spinner"
           mode="date"
@@ -60,7 +82,7 @@ const ExamensDentaires = ({values, setValues, focusedColor, focusBorderColor, bl
           cancelBtnText="Annuler"
           customStyles={{
             dateInput : {
-              backgroundColor:`${dateDernierExamDentaire ? "#e6f7f2":"#07f9f1"}`
+              backgroundColor:`${dateDernierExamDentaire ? "#e6f7f2":"#EEEEEE"}`
             },
             dateText:{
               fontSize: 20,
@@ -76,37 +98,50 @@ const ExamensDentaires = ({values, setValues, focusedColor, focusBorderColor, bl
           onDateChange={onDateChange}
         />
       </View>
-      <View>
-        <Text style={globalStyles.label}>
-          &#8227; Quel est le motif de votre consultation ici ?
-        </Text>
-        <TextInput
-          style={[globalStyles.input, {borderColor:`${focusedColor}`}]}
-          onFocus={focusBorderColor}
-          onBlur={blurBorderColor}
-          onChangeText={(text)=>setValues({...values, motifConsultation:text})}
+      <View style={{marginBottom:50}}>
+        <TextAreatAjouter
+          values={values}
+          setValues={setValues}
+          questionDescription="Quel est le motif de votre consultation aujourd'hui ? "
+          inputPlaceholder="Motif de votre consultation..."
+          stateOuiNonToString ="preoccupationDentsOuiNon"
+          stateNext = {motifConsultation}
+          stateNextToString = "motifConsultation"
+          unconditional={true}
         />
       </View>
       <View style={{marginTop:20}}>
-        <Text style={globalStyles.label}>
-          &#8227; Lors de vos précédentes visites chez le dentiste avez-vous rencontré des difficultés particulières ?
-        </Text>
+        <Label
+          question="Lors de vos précédentes visites chez le dentiste avez-vous rencontré des difficultés particulières ? "
+          statement={difficulteDentiste}
+        />
         <RadioComponent 
           valueState={difficulteDentiste} 
-          setValueToTrue = {()=>setValueToTrue("difficulteDentiste")} 
-          setValueToFalse = {()=>setValueToFalse("difficulteDentiste", "listeDifficulteDentiste", true, setDifficultesListe)}
+          setValueToTrue = {()=>setValueToTrue("difficulteDentiste", "listeDifficulteDentiste")} 
+          setValueToFalse = {()=>setValueToFalse("difficulteDentiste", "listeDifficulteDentiste", true, null)}
         />
       </View>
       {
-        difficulteDentiste &&
-        <View>
-          <Text style={[globalStyles.label, {marginTop:-25}]}>
-            &#8227; Quelles difficultés avez-vous rencontré ? :
-          </Text>
+        (difficulteDentiste || listeDifficulteDentiste === undefined) &&
+        <View style={{marginBottom:50}}>
+          <Label
+            question="Quelles difficultés avez-vous rencontré ? "
+            statement={listeDifficulteDentiste}
+          />
+          <View style={[globalStyles.flexRow, {marginBottom:0}]}>
+            {
+              (listeDifficulteDentiste!==undefined && listeDifficulteDentiste.length>0) &&
+              listeDifficulteDentiste.map((item, index)=>(
+                <View key={index.toString()} style={{justifyContent:"flex-start"}}>
+                  <QuestionsAutres item={item} deleteFunction={(event)=>deleteDifficulty(event)}/>
+                </View>
+              ))  
+            }
+          </View>    
           <TextInput
             onChangeText={(text)=>setDifficultesInput(text)}
             value={difficultesInput}
-            style={globalStyles.input}
+            style={[globalStyles.input, {width:"95%"}]}
             placeholder="Décrire votre difficulté"
           />
           <TouchableOpacity 
@@ -114,19 +149,8 @@ const ExamensDentaires = ({values, setValues, focusedColor, focusBorderColor, bl
             onPress={addDifficulty}>
             <Text style={{color:"#fff", fontSize:17.5, textAlign:"center"}}>AJOUTER</Text>
           </TouchableOpacity>
-          
         </View>
-      }
-      <View style={globalStyles.flexRow}>
-        {
-          difficultesListe.length>0 &&
-          difficultesListe.map((item, index)=>(
-            <View key={index.toString()} style={{justifyContent:"flex-start"}}>
-              <QuestionsAutres item={item} deleteFunction={(event)=>deleteDifficulty(event)}/>
-            </View>
-          ))  
-        }
-      </View>      
+      }  
     </View>
   );
 };

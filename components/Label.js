@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from 'react-native';
+import { Text } from 'react-native';
 import React from 'react';
 import { globalStyles } from '../globalStyles';
 
@@ -21,5 +21,3 @@ const Label = ({question, statement, isArray, conditional}) => {
 };
 
 export default Label;
-
-const styles = StyleSheet.create({});

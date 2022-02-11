@@ -26,63 +26,67 @@ import OtherDiseases from './components/OtherDiseases';
 import MedicalFormSecond from './components/MedicalFormSecond';
 import ExamensDentaires from './components/ExamensDentaires';
 import Gencives from './components/Gencives';
-import Dents from './components/Dents';
 import Machoire from './components/Machoire';
 import HygieneDentaire from './components/HygieneDentaire';
 import Habitudes from './components/Habitudes';
 import Esthetique from './components/Esthetique';
 import Divers from './components/Divers';
+import ValidationQuestionnaire from './components/ValidationQuestionnaire';
+import DentsQuestionOne from './components/DentsQuestionOne';
+import DentsQuestionTwo from './components/DentsQuestionTwo';
+import { dateToString } from './utils';
 
 
 export default function App() {
 
-  const [focusedColor, setFocusedColor] = useState("#000000")
+//Les valeurs qui sont conditionnées ne doivent pas avoir la valeur undefined!!!
+
   const [values, setValues] = useState({
-    dr:"",
-    dateRdv : "",
+    dr:"Sylvie MA-Francin",
+    dateRdv : dateToString(new Date().toDateString()) ,
     genre : "Madame",
-    nom : "",
-    prenom:"",
-    dateDeNaissance:"",
-    tel:"",
-    email:"",
-    profession:"",
-    adresse:"",
-    codePostal:"",
-    ville:"",
-    medecinTraitant : "",
-    dateDernierExamen:"",
-    changementEtatSante:"",
+    nom : undefined,
+    prenom:undefined,
+    dateDeNaissance:undefined,
+    tel:undefined,
+    email:undefined,
+    profession:undefined,
+    adresse:undefined,
+    codePostal:undefined,
+    ville:undefined,
+    medecinTraitant : undefined,
+    dateDernierExamen:undefined,
+    changementEtatSante:undefined,
     maladies:[],
-    saignementInterventionAccident:false,
-    traitementRadiations:false,
-    priseMedicamentActuelle:false,
+    saignementInterventionAccident:undefined,
+    traitementRadiations:undefined,
+    priseMedicamentActuelle:undefined,
     medicamentsActuels:[],
-    allergies : false,
+    allergies : undefined,
     allergiesListe:[],
-    fumeur:false,
+    fumeur:undefined,
     cigarettesParJour:"",
-    enceinte :false,
+    enceinte :undefined,
     moisDeGrossesse:"",
-    pilule:false,
-    osteoporose:false,
+    pilule:"",
+    osteoporose:undefined,
     medicOsteoporose :[],
-    dateDernierExamDentaire:"",
-    motifConsultation:"",
-    difficulteDentiste:false,
+    dateDernierExamDentaire:undefined,
+    motifConsultation:undefined,
+    difficulteDentiste:undefined,
     listeDifficulteDentiste:[],
     //Gencives
-    dentsEcartes:false,
-    saignementGencive:false,
-    traitementGencive:false,
+    dentsEcartes:undefined,
+    saignementGencive:undefined,
+    traitementGencive:undefined,
     traitementGencivesPar:[],
     //Dents
-    dentsExtraites:false,
+    dentsExtraites:undefined,
     causesExtraction : [],
-    dentsRemplacees:undefined,
+    dentsRemplacees:null,
     moyenDentRemplacement : [],
     raisonsNonRemplacementDentsExtraites : [],
-    sensationProthesesActuelles:undefined,
+    sensationProthesesActuelles:null,
     utilisationMetaux:undefined,
     preferencesUtilisationMetaux:[],
     dentsSensibles:undefined,
@@ -92,8 +96,8 @@ export default function App() {
     craquementClaquementDouleurOuvertureMachoire:undefined,
     difficulteAvalerMacherCoteUnique:undefined,
     //Hygiène dentaire
-    typeBrosseADent:[],
-    momentsBrossageDents:[],
+    typeBrosseADent:undefined,
+    momentsBrossageDents:undefined,
     rythmeChangementBrosseAdent:undefined,
     utilisationFilDentaireBrossette:undefined,
     //Habitudes
@@ -105,7 +109,10 @@ export default function App() {
     satisfactionDentsGencives: undefined,
     mainDevantBoucheSourire:undefined,
     souhaitsChangementOuiNon:undefined,
-    souhaitsChangement:"",
+    souhaitsChangement:[],
+
+    
+    //Reprendre ici!!!
     //Divers
     appareilDentaireUneFois:undefined,
     preoccupationDentsOuiNon:undefined,
@@ -113,7 +120,7 @@ export default function App() {
     modifierDentsOuiNon:undefined,
     modifierDents:"",
     anxieuxSoinsDentaires:undefined,
-    commentConnaissezVousLeCabinet:"",
+    commentConnaissezVousLeCabinet:undefined,
     autresRemarquesUtilesOuiNon:undefined,
     autresRemarquesUtiles:""
   })
@@ -133,15 +140,9 @@ export default function App() {
   })
 
   useEffect(()=>{
-    console.log(values.anxieuxSoinsDentaires)
-  },[values.anxieuxSoinsDentaires])
+    console.log(values.dateRdv)
+  },[values.dateRdv])
 
-  const focusBorderColor = ()=>{
-    setFocusedColor("#05bc1b")
-  }
-  const blurBorderColor = ()=>{
-    setFocusedColor("#4f4d4b")
-  }
 
   if(!fontsLoaded){
     return (
@@ -159,23 +160,31 @@ export default function App() {
       <Text style={styles.texteMiddle}>
         N’hésitez pas à vous adresser à mon assistante ou à moi-même pour vous aider à le remplir.
       </Text>
+      <Text style={[styles.texteMiddle, {color:"red", fontWeight:"bold", textDecorationLine:"underline", marginBottom:-10}]}>
+        Attention : 
+      </Text>
+      <Text style={[styles.texteMiddle, {color:"red", fontWeight:"bold"}]}>
+        Toutes les questions surlignés en rouge demandent une réponse obligatoire.
+      </Text>
       <Titles title="Votre dentité" />
       <IdentityForm values={values} setValues={setValues}/>
       <Titles title="Historique médical" />
-      <MedicalForm values={values} setValues={setValues} focusedColor={focusedColor} focusBorderColor={focusBorderColor} blurBorderColor={blurBorderColor} />
+      <MedicalForm values={values} setValues={setValues}/>
       <DiseasesCheckboxes values={values} setValues={setValues}/>
-      <OtherDiseases values={values} setValues={setValues} focusedColor={focusedColor} focusBorderColor={focusBorderColor} blurBorderColor={blurBorderColor}/>
+      <OtherDiseases values={values} setValues={setValues}/>
       <MedicalFormSecond values={values} setValues={setValues} />
       <Titles title="Historique dentaire" />  
-      <ExamensDentaires values={values} setValues={setValues} focusedColor={focusedColor} focusBorderColor={focusBorderColor} blurBorderColor={blurBorderColor}/>
+      <ExamensDentaires values={values} setValues={setValues}/>
       <Gencives values={values} setValues={setValues}/>
-      <Dents values={values} setValues={setValues}/>
+      <DentsQuestionOne values={values} setValues={setValues}/>
+      <DentsQuestionTwo values={values} setValues={setValues}/>
       <Machoire values={values} setValues={setValues}/>
       <HygieneDentaire values={values} setValues={setValues} />
       <Habitudes values={values} setValues={setValues} />
       <Esthetique values={values} setValues={setValues} />
       <Divers values={values} setValues={setValues}/>
       <Titles title="Valider les réponses du questionnaire"/>
+      <ValidationQuestionnaire values={values}/>
     </ScrollView>
   );
 }

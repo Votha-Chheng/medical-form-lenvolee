@@ -12,7 +12,7 @@ const CheckBoxComponent = ({title, maladies, handleChangeValues}) => {
                 fontSize:20,
                 marginTop:0,
             }}
-            style={{marginBottom:5}} 
+            style={{marginVertical:5}} 
             fillColor="green" 
             iconStyle={{ borderColor: "black" }}
             onPress={(isChecked)=> handleChangeValues(isChecked, title)}

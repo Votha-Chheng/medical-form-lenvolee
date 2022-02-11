@@ -1,10 +1,11 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 import SubTitles from './SubTitles';
 import CheckBoxComponent from './CheckBoxComponent';
 import { globalStyles } from '../globalStyles';
 import MultipleRadioComponent from './MultipleRadioComponent';
 import RadioComponent from './RadioComponent';
+import Label from './Label';
 
 const HygieneDentaire = ({values, setValues}) => {
 
@@ -15,21 +16,59 @@ const HygieneDentaire = ({values, setValues}) => {
     utilisationFilDentaireBrossette
   } = values
 
-  const changeTypeBrosseAdent = (isChecked, type)=>{
-    if(isChecked){
-      setValues({...values, typeBrosseADent: [...typeBrosseADent, type]})
-    } else if(!isChecked){
-      let tempState = typeBrosseADent.filter(item => item !== type)
-        setValues({...values, typeBrosseADent: tempState})
+  const radioIsUndefined = (isCkeckedStatus, input, stateArray, stateArrayToString)=>{
+    if(isCkeckedStatus){
+      let tempState = [input]
+      setValues({...values, [stateArrayToString]: tempState})
+
+    } else if(!isCkeckedStatus){
+      let tempState = stateArray.filter(traitement => traitement !== input)
+      setValues({...values, [stateArrayToString]: tempState})
+      
     }
   }
-  const changeMomentBrossage = (isChecked, moment)=>{
-    if(isChecked){
-      setValues({...values, momentsBrossageDents: [...momentsBrossageDents, moment]})
-    } else if(!isChecked){
-      let tempState = momentsBrossageDents.filter(item => item !== moment)
-        setValues({...values, momentsBrossageDents: tempState})
+  const radioIsDefined = (isCkeckedStatus, input, stateArray, stateArrayToString)=>{
+    if(isCkeckedStatus){
+      setValues({...values, [stateArrayToString]: [...stateArray, input]})
+
+    } else if(!isCkeckedStatus){
+      let tempState = stateArray.filter(traitement => traitement !== input)
+
+      if(tempState.length<1){
+        setValues({...values, [stateArrayToString]: undefined})
+
+      } else {
+        setValues({...values, [stateArrayToString]: tempState})
+
+      }
     }
+  }
+
+  const changeTypeBrosseAdent = (isChecked, type)=>{
+    if(typeBrosseADent===undefined){
+      radioIsUndefined(isChecked, type, typeBrosseADent, "typeBrosseADent")
+
+    } else {
+      radioIsDefined(isChecked, type, typeBrosseADent, "typeBrosseADent")
+    } 
+  }
+
+
+  const changeMomentBrossage = (isChecked, moment)=>{
+    if(momentsBrossageDents===undefined){
+      radioIsUndefined(isChecked, moment, momentsBrossageDents, "momentsBrossageDents")
+
+    } else {
+      radioIsDefined(isChecked, moment, momentsBrossageDents, "momentsBrossageDents")
+    } 
+
+
+    // if(isChecked){
+    //   setValues({...values, momentsBrossageDents: [...momentsBrossageDents, moment]})
+    // } else if(!isChecked){
+    //   let tempState = momentsBrossageDents.filter(item => item !== moment)
+    //     setValues({...values, momentsBrossageDents: tempState})
+    // }
   }
   const changeRythmeBrosseADent = (value)=>{
     setValues({...values, rythmeChangementBrosseAdent: value})
@@ -45,26 +84,29 @@ const HygieneDentaire = ({values, setValues}) => {
   return (
     <View style={globalStyles.container}>
       <SubTitles title="HYGIÈNE DENTAIRE" />
-      <View style={{marginTop:10}}>
-        <Text style={[globalStyles.label, {color:`${typeBrosseADent.length<1? "red": "black"}`}]}>
-          &#8227; Quel type de brosse à dent utilisez-vous ?
-        </Text>
+      <View style={{marginVertical:20}}>
+        <Label
+          question="Quel type de brosse à dent utilisez-vous ?"
+          statement={typeBrosseADent}
+        />
         <CheckBoxComponent title="Dure" maladies={typeBrosseADent} handleChangeValues={changeTypeBrosseAdent}/>
         <CheckBoxComponent title="Medium" maladies={typeBrosseADent} handleChangeValues={changeTypeBrosseAdent}/>
         <CheckBoxComponent title="Souple" maladies={typeBrosseADent} handleChangeValues={changeTypeBrosseAdent}/>
       </View>
-      <View style={{marginTop:10}}>
-        <Text style={[globalStyles.label, {color:`${momentsBrossageDents.length<1? "red": "black"}`}]}>
-          &#8227; À quel(s) moment(s) de la journée vous brossez-vous les dents ? :  
-        </Text>
+      <View style={{marginVertical:20}}>
+        <Label
+          question="À quel(s) moment(s) de la journée vous brossez-vous les dents ?"
+          statement={momentsBrossageDents}
+        />
         <CheckBoxComponent title="Matin" maladies={momentsBrossageDents} handleChangeValues={changeMomentBrossage}/>
         <CheckBoxComponent title="Midi" maladies={momentsBrossageDents} handleChangeValues={changeMomentBrossage}/>
         <CheckBoxComponent title="Soir" maladies={momentsBrossageDents} handleChangeValues={changeMomentBrossage}/>
       </View>
       <View style={{marginTop:25}}>
-        <Text style={[globalStyles.label, {color:`${rythmeChangementBrosseAdent === undefined ? "red": "black"}`}]}>
-          &#8227; À quel rythme changez-vous de brosse à dents environ ? :
-        </Text>
+        <Label
+          question="À quel rythme changez-vous de brosse à dents environ ?"
+          statement={rythmeChangementBrosseAdent}
+        />
         <View>
           <MultipleRadioComponent
             arrayChoix = {["Plus d'une fois par semaine", "Une fois par semaine", "Une à deux fois par mois", "Une à deux fois tous les 3 mois", "Au-delà de 3 mois"]} 
@@ -73,10 +115,12 @@ const HygieneDentaire = ({values, setValues}) => {
           />
         </View>
       </View>
+
       <View style={{marginTop:25}}>
-        <Text style={[globalStyles.label, {color:`${utilisationFilDentaireBrossette === undefined ? "red": "black"}`}]}>
-          &#8227; Utilisez-vous le fil de soie dentaire ou les brossettes inter-dentaires ?
-        </Text>
+        <Label
+          question="Utilisez-vous le fil de soie dentaire ou les brossettes inter-dentaires ?"
+          statement={utilisationFilDentaireBrossette}
+        />
         <RadioComponent
           valueState ={utilisationFilDentaireBrossette}
           setValueToTrue={setUtilisationToTrue}
@@ -89,4 +133,3 @@ const HygieneDentaire = ({values, setValues}) => {
 
 export default HygieneDentaire;
 
-const styles = StyleSheet.create({});

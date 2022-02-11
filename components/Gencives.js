@@ -1,40 +1,70 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import { View } from 'react-native';
+import React from 'react';
 import SubTitles from './SubTitles';
 import RadioComponent from './RadioComponent';
 import CheckBoxComponent from './CheckBoxComponent';
-import { globalStyles } from '../globalStyles';
+import Label from './Label';
 
 const Gencives = ({values, setValues}) => {
 
-  const {dentsEcartes, saignementGencive, traitementGencive, traitementGencivesPar} = values
+  const {
+    dentsEcartes, 
+    saignementGencive, 
+    traitementGencive, 
+    traitementGencivesPar
+  } = values
 
-  const setValueToTrue = (keyName)=>{
-    setValues({...values, [keyName]: true})
-  }
-  const setValueToFalse = (keyName, nextKey, isArray, arrayState)=>{
-    if(isArray){
-      arrayState = []
+  const setValueToTrue = (keyName, sideArray=null)=>{
+    
+    if(sideArray!==null){
+      setValues({...values, [keyName]: true, [sideArray]: undefined})
+    } else {
+      setValues({...values, [keyName]: true})
     }
+    
+  }
+
+  const setValueToFalse = (keyName, nextKey, isArray)=>{
     setValues({...values, [keyName]: false, [nextKey]:`${isArray? []: null}`})
   }
 
   const addRadioTypesTraitement = (isChecked, nameTraitement)=>{
-    if(isChecked){
-      setValues({...values, traitementGencivesPar: [...traitementGencivesPar, nameTraitement]})
-    } else if(!isChecked){
-      let tempState = traitementGencivesPar.filter(traitement => traitement !== nameTraitement)
+    if(traitementGencivesPar===undefined){
+
+      if(isChecked){
+        let tempState = [nameTraitement]
         setValues({...values, traitementGencivesPar: tempState})
-    }
+
+      } else if(!isChecked){
+        let tempState = traitementGencivesPar.filter(traitement => traitement !== nameTraitement)
+        setValues({...values, traitementGencivesPar: tempState})
+        
+      }
+
+    } else {
+      if(isChecked){
+        setValues({...values, traitementGencivesPar: [...traitementGencivesPar, nameTraitement]})
+
+      } else if(!isChecked){
+        let tempState = traitementGencivesPar.filter(traitement => traitement !== nameTraitement)
+
+        if(tempState.length<1){
+          setValues({...values, traitementGencivesPar: undefined})
+        } else {
+          setValues({...values, traitementGencivesPar: tempState})
+        }
+      }
+    }  
   }
 
   return (
     <View style={{marginLeft:5}}>
       <SubTitles title="GENCIVES" />
       <View>
-        <Text style={globalStyles.label}>
-          &#8227; Avez-vous remarqué que vos dents se sont écartées depuis quelque temps ?
-        </Text>
+        <Label
+          question="Avez-vous remarqué que vos dents se sont écartées depuis quelque temps ?"
+          statement={dentsEcartes}
+        />
         <RadioComponent
           valueState={dentsEcartes} 
           setValueToTrue = {()=>setValueToTrue("dentsEcartes")} 
@@ -42,9 +72,10 @@ const Gencives = ({values, setValues}) => {
         />
       </View>
       <View>
-        <Text style={globalStyles.label}>
-          &#8227; Vos gencives saignent-elles après le brossage, voire spontanément ?
-        </Text>
+        <Label
+          question="Vos gencives saignent-elles après le brossage, voire spontanément ?"
+          statement={saignementGencive}
+        />
         <RadioComponent
           valueState={saignementGencive} 
           setValueToTrue = {()=>setValueToTrue("saignementGencive")} 
@@ -52,20 +83,22 @@ const Gencives = ({values, setValues}) => {
         />
       </View>
       <View style={{marginBottom:5}}>
-        <Text style={globalStyles.label}>
-          &#8227; Avez-vous déjà été traité(e) pour les gencives ?
-        </Text>
+        <Label
+          question="Avez-vous déjà été traité(e) pour les gencives ?"
+          statement={traitementGencive}
+        />
         <RadioComponent
           valueState={traitementGencive} 
-          setValueToTrue = {()=>setValueToTrue("traitementGencive")} 
-          setValueToFalse = {()=>setValueToFalse("traitementGencive", "traitementGencivesPar", true, traitementGencivesPar)}
+          setValueToTrue = {()=>setValueToTrue("traitementGencive", "traitementGencivesPar")} 
+          setValueToFalse = {()=>setValueToFalse("traitementGencive", "traitementGencivesPar", true)}
         />
         {
           traitementGencive &&
-          <View style={{marginTop:-25}}>
-            <Text style={globalStyles.label}>
-              Le(s) traitement(s) a/ont été effectué(s) par :
-            </Text>
+          <View style={{marginTop:-25, marginBottom:30}}>
+            <Label
+              question="Le(s) traitement(s) a/ont été effectué(s) par "
+              statement={traitementGencivesPar}
+            />
             <View style={{marginHorizontal:25}}>
               <CheckBoxComponent title="Chirurgie" maladies={traitementGencivesPar} handleChangeValues={addRadioTypesTraitement}/>
               <CheckBoxComponent title="Médicaments" maladies={traitementGencivesPar} handleChangeValues={addRadioTypesTraitement}/>

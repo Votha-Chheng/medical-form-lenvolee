@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, Button, Pressable } from 'react-native';
+import { View, Text } from 'react-native';
 import { globalStyles } from '../globalStyles';
 import CheckBoxComponent from './CheckBoxComponent';
 
@@ -23,7 +23,7 @@ const DiseasesCheckboxes = ({values, setValues}) => {
         &#8227; Merci de cocher chacune des maladies ou problèmes que vous avez pu avoir par le passé ou que vous avez actuellement :
       </Text>
       <View style={globalStyles.flexRow}>
-        <View style={{marginRight:50}}>
+        <View style={{marginRight:30}}>
           <CheckBoxComponent title="Antidépresseurs" checkedList={maladies} handleChangeValues={handleChangeValues}/>
           <CheckBoxComponent title="Maladie du foie" maladies={maladies} handleChangeValues={handleChangeValues} />
           <CheckBoxComponent title="Prothèses non-dentaires" maladies={maladies} handleChangeValues={handleChangeValues}/>

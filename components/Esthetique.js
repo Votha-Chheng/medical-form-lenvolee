@@ -1,16 +1,13 @@
-import { StyleSheet, Text, TextInput, TextInputBase, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import { View } from 'react-native';
+import React from 'react';
 import SubTitles from './SubTitles';
 import { globalStyles } from '../globalStyles';
 import RadioComponent from './RadioComponent';
 import Label from './Label';
-import TextAreaInput from './TextAreaInput';
+import TextAreatAjouter from './TextAreatAjouter';
 
 const Esthetique = ({values, setValues}) => {
 
-  //const [changementSourire, setChangementSourire] = useState(undefined)
-  const [souhaitsInput, setSouhaitsInput] = useState("")
-  //const [modifier, setModifier] = useState(false)
 
   const {
     dentsMemeCouleurs,
@@ -21,36 +18,22 @@ const Esthetique = ({values, setValues}) => {
     souhaitsChangement
   } = values
 
-  const setValueToTrue = (keyName)=>{
-    setValues({...values, [keyName]:true})
+  const setValueToTrue = (keyName, secondKeyName)=>{
+    setValues({...values, [keyName]:true, [secondKeyName]:undefined})
   }
   const setValueToFalse = (keyName)=>{
     setValues({...values, [keyName]:false})
   }
 
-  const setSourireChangementToFalse = ()=>{
-    setValues({...values, souhaitsChangementOuiNon : false, souhaitsChangement:""})
-    setModifier(false)
-    setSouhaitsInput("")
-  }
-
-  const handleValidateSouhaitChangement = (textState, keyName, input)=>{
-    if(souhaitsInput.length>2){
-      setValues({...values, souhaitsChangement: souhaitsInput})
-      //setModifier(false)
-    }
-  }
 
   return (
     <View style={[globalStyles.container, {marginBottom:25}]}>
       <SubTitles title="DENTISTERIE ESTH&Eacute;TIQUE" />
-      <View>
+      <View style={{marginTop:15}}>
         <View>
           <Label 
             question="Dans un large sourire, vos dents sont-elles toutes de la même couleur ?"
             statement={dentsMemeCouleurs}
-            isArray={false}
-            conditional={false}
           />
           <RadioComponent
             valueState={dentsMemeCouleurs}
@@ -98,27 +81,18 @@ const Esthetique = ({values, setValues}) => {
           />
         </View>
 
-        <View>
-          <Label
-            question="Si vous aviez la possibilité de changer votre sourire, aimeriez-vous changer quelque chose ?"
-            statement={souhaitsChangementOuiNon}
-            isArray={false}
-            conditional={false}
-          />
-          <RadioComponent
-            valueState={souhaitsChangementOuiNon}
-            setValueToTrue={()=>setValueToTrue("souhaitsChangementOuiNon")}
-            setValueToFalse={setSourireChangementToFalse}
-          />
-          <TextAreaInput
+        <View style={{marginBottom:50}}>
+          <TextAreatAjouter
             values={values}
             setValues={setValues}
-            question="Décrivez tout ce que vous aimeriez changer :"
-            textState = {souhaitsChangement}
-            ouiNonState ={souhaitsChangementOuiNon}
-            keyName="souhaitsChangement"
+            questionOuiNon="Si vous aviez la possibilité de changer votre sourire, aimeriez-vous changer quelque chose ?"
+            questionDescription="Qu'aimeriez-vous changer dans votre sourire ?"
+            inputPlaceholder="Décrivez tout ce que vous aimeriez changer "
+            stateOuiNon={souhaitsChangementOuiNon}
+            stateOuiNonToString ="souhaitsChangementOuiNon"
+            stateNext = {souhaitsChangement}
+            stateNextToString = "souhaitsChangement"
           />
-          
         </View>
       </View>  
     </View>
@@ -126,5 +100,3 @@ const Esthetique = ({values, setValues}) => {
 };
 
 export default Esthetique;
-
-const styles = StyleSheet.create({});
