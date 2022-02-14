@@ -6,8 +6,11 @@ import Label from './Label';
 import RadioComponent from './RadioComponent';
 import MultipleRadioComponent from './MultipleRadioComponent';
 import TextAreatAjouter from './TextAreatAjouter';
+import { useValuesContext } from '../providers/ValuesProvider';
 
-const Divers = ({values, setValues}) => {
+const Divers = () => {
+
+  const {values, setValues} = useValuesContext()
 
   const {
     appareilDentaireUneFois,

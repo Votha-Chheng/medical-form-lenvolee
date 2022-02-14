@@ -6,9 +6,12 @@ import { globalStyles } from '../globalStyles';
 import MultipleRadioComponent from './MultipleRadioComponent';
 import RadioComponent from './RadioComponent';
 import Label from './Label';
+import { useValuesContext } from '../providers/ValuesProvider';
 
-const HygieneDentaire = ({values, setValues}) => {
+const HygieneDentaire = () => {
 
+  const {values, setValues} = useValuesContext()
+  
   const {
     typeBrosseADent,
     momentsBrossageDents,
@@ -62,13 +65,6 @@ const HygieneDentaire = ({values, setValues}) => {
       radioIsDefined(isChecked, moment, momentsBrossageDents, "momentsBrossageDents")
     } 
 
-
-    // if(isChecked){
-    //   setValues({...values, momentsBrossageDents: [...momentsBrossageDents, moment]})
-    // } else if(!isChecked){
-    //   let tempState = momentsBrossageDents.filter(item => item !== moment)
-    //     setValues({...values, momentsBrossageDents: tempState})
-    // }
   }
   const changeRythmeBrosseADent = (value)=>{
     setValues({...values, rythmeChangementBrosseAdent: value})
@@ -77,7 +73,7 @@ const HygieneDentaire = ({values, setValues}) => {
   const setUtilisationToTrue = ()=>{
     setValues({...values, utilisationFilDentaireBrossette: true})
   }
-  const setUtilisationToFalse = (keyName)=>{
+  const setUtilisationToFalse = ()=>{
     setValues({...values, utilisationFilDentaireBrossette: false})
   }
 

@@ -5,13 +5,15 @@ import QuestionsAutres from './QuestionsAutres';
 import CheckBoxComponent from './CheckBoxComponent';
 import { globalStyles } from '../globalStyles';
 import Label from './Label';
+import { useValuesContext } from '../providers/ValuesProvider';
 
-const MedicalFormSecond = ({values, setValues}) => {
+const MedicalFormSecond = () => {
   const [textInput, setTextInput] = useState("")
   const [extraMedic, setExtraMedic] = useState([])
   const [allergieInput, setAllergieInput] = useState("")
   const [allergiesArray, setAllergiesArray] = useState([])
-  const [medicOsteoposrose, setMedicOsteoposrose] = useState([])
+
+  const {values, setValues} = useValuesContext()
   
   const {
     saignementInterventionAccident,
@@ -38,7 +40,7 @@ const MedicalFormSecond = ({values, setValues}) => {
     }
   }
 
-  const setValueToFalse = (keyName, nextKey, isArray, setExtraArray)=>{
+  const setValueToFalse = (keyName, nextKey=null, isArray, setExtraArray)=>{
     if(isArray && setExtraArray){
       setExtraArray([])
     }

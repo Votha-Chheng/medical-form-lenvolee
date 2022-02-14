@@ -1,14 +1,17 @@
 import { ScrollView, StyleSheet, Text, TextInput, View, TouchableOpacity} from 'react-native';
 import { useEffect, useState } from 'react';
 import { globalStyles } from '../globalStyles';
+import { useValuesContext } from '../providers/ValuesProvider';
 
-const OtherDiseases = ({values, setValues})=>{
+const OtherDiseases = ()=>{
 
   const [inputValue, setInputValue] = useState("")
   const [showNewValues, setShowNewValues] = useState(false)
   const [showDelete, setShowDelete] = useState(false)
   const [deleteMode, setDeleteMode] = useState(false)
   const [extraDiseases, setExtraDiseases] = useState([])
+
+  const {values, setValues} = useValuesContext()
 
   const {maladies} = values
 

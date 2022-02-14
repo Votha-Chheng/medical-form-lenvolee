@@ -6,11 +6,14 @@ import QuestionsAutres from './QuestionsAutres';
 import {globalStyles} from '../globalStyles';
 import Label from './Label'
 import TextAreatAjouter from './TextAreatAjouter';
+import { useValuesContext } from '../providers/ValuesProvider';
 
-const ExamensDentaires = ({values, setValues, focusedColor, focusBorderColor, blurBorderColor}) => {
+const ExamensDentaires = () => {
   const [dateLastExam, setDateLastExam] = useState(new Date())
   const [difficultesInput, setDifficultesInput] = useState("")
-  null
+
+  const {values, setValues} = useValuesContext()
+
   const {
     dateDernierExamDentaire, 
     motifConsultation,
@@ -59,8 +62,7 @@ const ExamensDentaires = ({values, setValues, focusedColor, focusBorderColor, bl
     } else {
       setValues({...values, listeDifficulteDentiste: tempState})
 
-    }
-    
+    }  
   }
 
   return (

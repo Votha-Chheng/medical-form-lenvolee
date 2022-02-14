@@ -1,7 +1,4 @@
 import AppLoading from 'expo-app-loading';
-import { ScrollView, StyleSheet, Text } from 'react-native';
-import Logo from './components/Logo';
-import Titles from './components/Titles';
 import { 
   FrankRuhlLibre_300Light,
   FrankRuhlLibre_400Regular,
@@ -18,24 +15,15 @@ import {
   Oswald_700Bold 
 } from '@expo-google-fonts/oswald'
 import { useFonts } from 'expo-font';
-import IdentityForm from './components/IdentityForm';
 import { useEffect, useState } from 'react';
-import MedicalForm from './components/MedicalForm';
-import DiseasesCheckboxes from './components/DiseasesCheckboxes';
-import OtherDiseases from './components/OtherDiseases';
-import MedicalFormSecond from './components/MedicalFormSecond';
-import ExamensDentaires from './components/ExamensDentaires';
-import Gencives from './components/Gencives';
-import Machoire from './components/Machoire';
-import HygieneDentaire from './components/HygieneDentaire';
-import Habitudes from './components/Habitudes';
-import Esthetique from './components/Esthetique';
-import Divers from './components/Divers';
-import ValidationQuestionnaire from './components/ValidationQuestionnaire';
-import DentsQuestionOne from './components/DentsQuestionOne';
-import DentsQuestionTwo from './components/DentsQuestionTwo';
 import { dateToString } from './utils';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AccueilScreen from './screens/AccueilScreen';
+import QuestionnaireScreen from './screens/QuestionnaireScreen';
+import MerciScreen from './screens/MerciScreen';
+import ValuesProvider from './providers/ValuesProvider';
+import ListFichesPatients from './screens/ListFichesPatients';
 
 export default function App() {
 
@@ -45,83 +33,83 @@ export default function App() {
     dr:"Sylvie MA-Francin",
     dateRdv : dateToString(new Date().toDateString()) ,
     genre : "Madame",
-    nom : undefined,
-    prenom:undefined,
-    dateDeNaissance:undefined,
-    tel:undefined,
-    email:undefined,
-    profession:undefined,
-    adresse:undefined,
-    codePostal:undefined,
-    ville:undefined,
-    medecinTraitant : undefined,
-    dateDernierExamen:undefined,
-    changementEtatSante:undefined,
+    nom : undefined, //
+    prenom:undefined, //
+    dateDeNaissance:undefined, //
+    tel:undefined, //
+    email:undefined, //
+    profession:undefined, //
+    adresse:undefined, //
+    codePostal:undefined, //
+    ville:undefined, //
+    medecinTraitant : undefined, //
+    dateDernierExamen:undefined, //
+    changementEtatSante:undefined, //
     maladies:[],
-    saignementInterventionAccident:undefined,
-    traitementRadiations:undefined,
+    saignementInterventionAccident:undefined, //
+    traitementRadiations:undefined, //
     priseMedicamentActuelle:undefined,
     medicamentsActuels:[],
-    allergies : undefined,
+    allergies : undefined, //
     allergiesListe:[],
-    fumeur:undefined,
+    fumeur:undefined, //
     cigarettesParJour:"",
-    enceinte :undefined,
+    enceinte :undefined, //
     moisDeGrossesse:"",
     pilule:"",
-    osteoporose:undefined,
+    osteoporose:undefined, //
     medicOsteoporose :[],
-    dateDernierExamDentaire:undefined,
-    motifConsultation:undefined,
-    difficulteDentiste:undefined,
+    dateDernierExamDentaire:undefined, //
+    motifConsultation:undefined, //
+    difficulteDentiste:undefined, //
     listeDifficulteDentiste:[],
     //Gencives
-    dentsEcartes:undefined,
-    saignementGencive:undefined,
-    traitementGencive:undefined,
+    dentsEcartes:undefined, //
+    saignementGencive:undefined, //
+    traitementGencive:undefined, //
     traitementGencivesPar:[],
     //Dents
-    dentsExtraites:undefined,
+    dentsExtraites:undefined, //
     causesExtraction : [],
     dentsRemplacees:null,
     moyenDentRemplacement : [],
     raisonsNonRemplacementDentsExtraites : [],
     sensationProthesesActuelles:null,
-    utilisationMetaux:undefined,
+    utilisationMetaux:undefined, //
     preferencesUtilisationMetaux:[],
-    dentsSensibles:undefined,
+    dentsSensibles:undefined, //
     listeSensibilite : [],
     //Mâchoires
-    serrementGrincementDents:undefined,
-    craquementClaquementDouleurOuvertureMachoire:undefined,
-    difficulteAvalerMacherCoteUnique:undefined,
+    serrementGrincementDents:undefined, //
+    craquementClaquementDouleurOuvertureMachoire:undefined, //
+    difficulteAvalerMacherCoteUnique:undefined, //
     //Hygiène dentaire
-    typeBrosseADent:undefined,
-    momentsBrossageDents:undefined,
-    rythmeChangementBrosseAdent:undefined,
-    utilisationFilDentaireBrossette:undefined,
+    typeBrosseADent:undefined, //
+    momentsBrossageDents:undefined, //
+    rythmeChangementBrosseAdent:undefined, //
+    utilisationFilDentaireBrossette:undefined, //
     //Habitudes
     habitudes:[],
-    mauvaiseHaleine : undefined,
+    mauvaiseHaleine : undefined, //
     //Dentisterie esthétique
     dentsMemeCouleurs:undefined,
-    souhaitDentsPlusBlanches:undefined,
-    satisfactionDentsGencives: undefined,
-    mainDevantBoucheSourire:undefined,
-    souhaitsChangementOuiNon:undefined,
+    souhaitDentsPlusBlanches:undefined, //
+    satisfactionDentsGencives: undefined, //
+    mainDevantBoucheSourire:undefined, //
+    souhaitsChangementOuiNon:undefined, //
     souhaitsChangement:[],
 
     
     //Reprendre ici!!!
     //Divers
-    appareilDentaireUneFois:undefined,
-    preoccupationDentsOuiNon:undefined,
+    appareilDentaireUneFois:undefined, //
+    preoccupationDentsOuiNon:undefined, //
     preoccupationDents:"",
-    modifierDentsOuiNon:undefined,
+    modifierDentsOuiNon:undefined, //
     modifierDents:"",
-    anxieuxSoinsDentaires:undefined,
-    commentConnaissezVousLeCabinet:undefined,
-    autresRemarquesUtilesOuiNon:undefined,
+    anxieuxSoinsDentaires:undefined, //
+    commentConnaissezVousLeCabinet:undefined, //
+    autresRemarquesUtilesOuiNon:undefined, //
     autresRemarquesUtiles:""
   })
 
@@ -140,9 +128,12 @@ export default function App() {
   })
 
   useEffect(()=>{
-    console.log(values.dateRdv)
-  },[values.dateRdv])
-
+    if(values.undefined){
+      console.log("Key undefined just appeared !!!")
+    } else {
+      console.log("Nothing")
+    }
+  }, [values])
 
   if(!fontsLoaded){
     return (
@@ -150,61 +141,21 @@ export default function App() {
     )
   }
 
+  const Stack = createNativeStackNavigator()
+
+
   return (
-    <ScrollView style={styles.container}>
-      <Logo/>
-      <Titles title="Questionnaire médical" />
-      <Text style={styles.texte}>
-        Afin de vous soigner en toute sécurité, un historique détaillé de votre état de santé générale et dentaire est de la plus grande importance. C’est pourquoi nous vous remercions de répondre avec soin aux questions suivantes. Ces informations resteront strictement confidentielles. Par ailleurs, nous discuterons ensemble de cet historique en détails. 
-      </Text>
-      <Text style={styles.texteMiddle}>
-        N’hésitez pas à vous adresser à mon assistante ou à moi-même pour vous aider à le remplir.
-      </Text>
-      <Text style={[styles.texteMiddle, {color:"red", fontWeight:"bold", textDecorationLine:"underline", marginBottom:-10}]}>
-        Attention : 
-      </Text>
-      <Text style={[styles.texteMiddle, {color:"red", fontWeight:"bold"}]}>
-        Toutes les questions surlignés en rouge demandent une réponse obligatoire.
-      </Text>
-      <Titles title="Votre dentité" />
-      <IdentityForm values={values} setValues={setValues}/>
-      <Titles title="Historique médical" />
-      <MedicalForm values={values} setValues={setValues}/>
-      <DiseasesCheckboxes values={values} setValues={setValues}/>
-      <OtherDiseases values={values} setValues={setValues}/>
-      <MedicalFormSecond values={values} setValues={setValues} />
-      <Titles title="Historique dentaire" />  
-      <ExamensDentaires values={values} setValues={setValues}/>
-      <Gencives values={values} setValues={setValues}/>
-      <DentsQuestionOne values={values} setValues={setValues}/>
-      <DentsQuestionTwo values={values} setValues={setValues}/>
-      <Machoire values={values} setValues={setValues}/>
-      <HygieneDentaire values={values} setValues={setValues} />
-      <Habitudes values={values} setValues={setValues} />
-      <Esthetique values={values} setValues={setValues} />
-      <Divers values={values} setValues={setValues}/>
-      <Titles title="Valider les réponses du questionnaire"/>
-      <ValidationQuestionnaire values={values}/>
-    </ScrollView>
+    <ValuesProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Accueil" component={AccueilScreen}/>
+          <Stack.Screen name="Questionnaire médical" options={{headerShown:false}} component={QuestionnaireScreen}/>
+          <Stack.Screen name="Merci" component={MerciScreen}/>
+          <Stack.Screen name="Liste fiches patients" component={ListFichesPatients}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ValuesProvider>
+    
   );
 }
 
-const styles = StyleSheet.create({
-  texte: {
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    letterSpacing : 1.25,
-    fontSize:17,
-    textAlign:"justify",
-    lineHeight : 25
-  },
-  texteMiddle: {
-    paddingBottom: 10,
-    paddingTop:0,
-    paddingHorizontal: 25,
-    letterSpacing : 1.25,
-    fontSize:17,
-    textAlign:"justify",
-    lineHeight : 25
-  },
-});

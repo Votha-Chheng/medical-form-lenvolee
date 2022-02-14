@@ -1,8 +1,11 @@
 import { View, Text } from 'react-native';
 import { globalStyles } from '../globalStyles';
+import { useValuesContext } from '../providers/ValuesProvider';
 import CheckBoxComponent from './CheckBoxComponent';
 
-const DiseasesCheckboxes = ({values, setValues}) => {
+const DiseasesCheckboxes = () => {
+
+  const {values, setValues} = useValuesContext()
 
   const {maladies} = values
 

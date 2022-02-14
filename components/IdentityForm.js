@@ -5,10 +5,22 @@ import { RadioButton } from "react-native-paper";
 import DatePicker from 'react-native-datepicker';
 import { globalStyles } from "../globalStyles";
 import Label from "./Label";
+import { useValuesContext } from "../providers/ValuesProvider";
 
-const IdentityForm = ({values, setValues}) => {
+const IdentityForm = () => {
   const [date, setDate] = useState(new Date());
   const [birthDate, setBirthDate] = useState(new Date());
+  const [nomInput, setNomInput] = useState("");
+  const [prenomInput, setPrenomInput] = useState("");
+  const [telInput, setTelInput] = useState("");
+  const [professionInput, setProfessionInput] = useState("");
+  const [adresseInput, setAdresseInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [villeInput, setVilleInput] = useState("");
+  const [codePostalInput, setCodePostalInput] = useState("");
+  const [genreInput, setgenreInput] = useState("");
+
+  const {values, setValues} = useValuesContext()
 
   const {
     dateRdv, 
@@ -49,14 +61,18 @@ const IdentityForm = ({values, setValues}) => {
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date
     setDate(currentDate)
-    setValues({...values, dateRdv:currentDate.toLocaleDateString("fr-FR")})
+    setValues({...values, dateRdv:currentDate})
   };
 
-  const onValueChange = (event, newDate)=>{
+  const onBirthDayChange = (event, newDate)=>{
     const selectedDate = newDate || birthDate;
     setBirthDate(selectedDate);
-    setValues({...values, dateDeNaissance : birthDate})
-    
+    setValues({...values, dateDeNaissance : selectedDate})
+  }
+
+  const onValidateNothing = (value, keyToString, inputSetter)=>{
+    setValues({...values, [keyToString] : value})
+    inputSetter(value)
   }
 
   const onValidateNumber = (text)=>{
@@ -164,7 +180,8 @@ const IdentityForm = ({values, setValues}) => {
         <TextInput 
           style={[globalStyles.input,{borderWidth:2, width:250, marginLeft:25, marginTop:5, borderColor:`${nom === undefined ? "red":"green"}`}]} 
           placeholder="Nom de famille"
-          onChangeText={(text)=>setValues({...values, nom:text})}
+          onChangeText={(text)=>onValidateNothing(text, 'nom', setNomInput)}
+          value={nomInput}
         />
         <TextInput 
           style={[globalStyles.input, {borderWidth:2, width:250, marginTop:5, borderColor:`${prenom === undefined ? "red":"green"}`}]} 
@@ -204,7 +221,7 @@ const IdentityForm = ({values, setValues}) => {
             },
 
           }}
-          onDateChange={onValueChange}
+          onDateChange={onBirthDayChange}
         />
       </View>
       <View style={globalStyles.flexRow}>

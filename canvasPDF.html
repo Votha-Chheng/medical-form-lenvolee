@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="width:21cm;margin:0 auto;padding: 10px;">
+  <div style="height:29.7cm; overflow:hidden;margin:0 auto;padding: 10px;">
+    <div style="text-align: center; background-color: darkgray;padding: 2px;">
+      <h1 style="font-family: 'Times New Roman', Times, serif;margin-bottom: 5px;">L'envolée</h1>
+      <h2 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size: 15px; margin-top: 0;">Cabinet dentaire</h2>
+      <h3>value.dr</h3>
+    </div>
+    <main style="padding-top: 20px;">
+      <div style="display:flex; justify-content: space-between; font-size: 20px; margin-bottom: 20px;">
+        <div style="font-weight: bold;">
+          Patient :value.genre  value.nom value.prenom
+        </div>
+        <div>
+          Date : value.dateRdv
+        </div>
+      </div>
+      <div>
+        Date de naissance : value.dateDeNaissance
+      </div>
+      <div>
+        Profession : value.profession
+      </div>
+      <div>
+        Téléphone : value.profession
+      </div>
+      <div>
+        E-mail : value.email
+      </div>
+      <div>
+        Adresse : value.adresse
+      </div>
+      <div>
+        value.ville value.codePostal
+      </div>
+      <section>
+        <h2 style="background-color: darkgray;font-size: 17px;padding: 2.5px;text-align: center;margin: 10px auto;">
+          HISTORIQUE MEDICAL
+        </h2>
+
+        <article style="display: flex; justify-content: space-between; column-gap: 10px;">
+          <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+            <div>
+              Médecin traitant : value.medecinTraitant
+            </div>
+            <div>
+              Date du dernier examen médical : value.dateDernierExamen
+            </div>
+            <div>
+              Avez -vous connu des changements dans votre état de santé depuis un an ?  : value.changementEtatSante
+            </div>
+            <div>
+              Problèmes connus par le passé : value.maladies.toString()
+            </div>
+            <div>
+              Avez-vous déjà eu un saignement anormal au cours d’une intervention ou d’un accident? : values.saignementInterventionAccident
+            </div>
+            <div>
+              Avez-vous subi un traitement par radiations ? value.traitementRadiations
+            </div>
+            
+          </div>
+
+          <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+            <div>
+              Prise de médicaments actuellement ? value.priseMedicamentActuelle
+            </div>
+            <div>
+              Médicaments: value.medicamentsActuels.toString()
+            </div>
+            <div>
+              Allergies ? value.allergies
+            </div>
+            <div>
+              Liste allergènes : value.allergiesListe.toString()
+            </div>
+            <div>
+              Fumeur : value.fumeur value.cigaretteParJour cigarette/jour 
+            </div>
+            <div>
+              Enceinte ? value.enceinte de value.moisDeGrossesse mois
+            </div>
+            <div>
+              Pilue ? value.pilule
+            </div>
+            <div>
+              Traitement contre l'ostéoporose ? value.osteoporose
+            </div>
+            <div>
+              Médicaments contre l'ostéoporose ? value.medicOsteoporose.toString()
+            </div>
+          </div>
+        </article>
+        <h2 style="background-color: darkgray;font-size: 17px;padding: 2.5px;text-align: center;margin: 10px auto;">
+          HISTORIQUE DENTAIRE
+        </h2>
+        <article style="display: flex; justify-content: space-between; column-gap: 10px;">
+          <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+            <div>
+              Date du dernier examen dentaire : value.dateDernierExamDentaire 
+            </div>
+            <div>
+              Motif de consultation aujourd'hui ? value.motifConsultation 
+            </div>
+            
+          </div>
+          <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+            <div>
+              Lors de vos précédentes visites chez le dentiste avez-vous rencontré des difficultés particulières ? value.difficulteDentiste 
+            </div>
+            <div>
+              Liste des difficultés avec le dentiste : value.listeDifficulteDentiste.toString() 
+            </div>
+          </div>
+        </article>
+        <h3 style="text-decoration: underline;margin-bottom: 5px;margin-top: 5px;">
+          GENCIVES
+        </h3>
+        <article style="display: flex; justify-content: space-between; column-gap: 10px;">
+          <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+            <div>
+              Avez-vous remarqué que vos dents se sont écartées depuis quelque temps ? value.dentsEcartes 
+            </div>
+            <div>
+              Saignement des gencives ? value.saignementGencives 
+            </div>
+            
+          </div>
+          <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+            <div>
+              Traitements des gencives auparavant ? value.traitementGencive 
+            </div>
+            <div>
+              Traitements des gencives par : value.traitementGencivesPar.toString() 
+            </div>
+          </div>
+        </article>
+        <h3 style="text-decoration: underline;margin-bottom: 5px;margin-top: 5px;">
+          DENTS
+        </h3>
+        <article style="display: flex; justify-content: space-between; column-gap: 10px;">
+          <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+            <div>
+              Avez-vous des dents extraites ?  value.dentsExtraites
+            </div>
+            <div>
+              Raisons des extractions des dents ? value.causesExtraction 
+            </div>
+            <div>
+              Les dents extraites ont-elles été remplacées ? value.dentsRemplacees 
+            </div>
+            <div>
+              Les dents extraites ont-été remplacées par : value.moyenDentRemplacement.toString() 
+            </div>
+            <div>
+              Pour quelles raison n'ont-elle pas été remplacées ? value.raisonsNonRemplacementDentsExtraites.toString() 
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+            <div>
+              Comment vous sentez-vous avec vos prothèses actuelles ? value.sensationProthesesActuelles 
+            </div>
+            <div>
+              ${
+                value.utilisationMetaux===true && "Préférences particulières pour l'utilisation des métaux dans votre bouche ? : value.traitementGencivesPar.toString()" 
+              }
+            </div>
+            <div>
+              ${
+                value.dentsSensibles===true && "Préférences particulières pour l'utilisation des métaux dans votre bouche ? : value.listeSensibilite.toString()" 
+              }
+            </div>
+          </div>
+        </article>
+        
+      </section>
+    </main>
+  </div>
+  <div style="height:29.7cm; overflow:hidden;margin:0 auto;padding: 10px;">
+    <h3 style="text-decoration: underline;">
+      MACHOIRES
+    </h3>
+    <article style="display: flex; justify-content: space-between; column-gap: 10px;">
+      <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+        <div>
+          Serrez-vous ou grincez-vous des dents ? value.serrementGrincementDents
+        </div>
+        <div>
+          Craquements, claquements ou douleur à l’ouverture de la mâchoire ? value.craquementClaquementDouleurOuvertureMachoire
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+        <div>
+          Difficultés à avaler, à mâcher ou ne mâchez seulement d’un côté ? value.difficulteAvalerMacherCoteUnique
+        </div>
+      </div>
+    </article>
+    <h3 style="text-decoration: underline;">
+      HYGIÈNE DENTAIRE
+    </h3>
+    <article style="display: flex; justify-content: space-between; column-gap: 10px;">
+      <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+        <div>
+        Types de brosse à dent utilisé : value.typeBrosseADent
+        </div>
+        <div>
+          Quand vous brossez-vous les dents ? value.momentsBrossageDents.toString()
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+        <div>
+          A quel rythme changez-vous de brosse à dents ? value.rythmeChangementBrosseAdent
+        </div>
+        <div>
+          Utilisation du fil de soie dentaire ou de brossettes inter-dentaires ? value.utilisationFilDentaireBrossette
+        </div>
+      </div>
+    </article>
+    <h3 style="text-decoration: underline;">
+      HABITUDES
+    </h3>
+    <article style="display: flex; justify-content: space-between; column-gap: 10px;">
+      <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+        <div>
+          ${
+            value.habitudes.length>0 ? "Avez-vous eu par le passé ou avez-vous maintenant l’une des habitudes suivantes : `${value.habitudes.toString()}`"
+          }
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+        
+        <div>
+          Avez-vous l’impression d’avoir une mauvaise haleine ou un mauvais goût dans la bouche ? value.mauvaiseHaleine
+        </div>
+      </div>
+    </article>
+    <h3 style="text-decoration: underline;">
+      DENTISTERIE ESTHÉTIQUE
+    </h3>
+    <article style="display: flex; justify-content: space-between; column-gap: 10px;">
+      <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+        <div>
+          Dans un large sourire, vos dents sont-elles toutes de la même couleur ? value.dentsMemeCouleurs
+        </div>
+        <div>
+          Aimeriez-vous avoir des dents plus blanches ? value.souhaitDentsPlusBlanches
+        </div>
+        <div>
+          Etes-vous satisfait(e) de l’apparence de vos dents et de vos gencives ? value.satisfactionDentsGencives
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+        <div>
+          Mettez-vous la main devant la bouche lorsque vous riez ou souriez ?  value.mainDevantBoucheSourire
+        </div>
+        <div>
+          ${
+            souhaitsChangementOuiNon===true ? "Si vous aviez la possibilité de changer votre sourire, qu’aimeriez-vous changer ? : ${value.souhaitsChangement.toString()}" : ""
+          }
+        </div>
+      </div>
+    </article>
+    <h3 style="text-decoration: underline;">
+      DIVERS
+    </h3>
+    <article style="display: flex; justify-content: space-between; column-gap: 10px;">
+      <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+        <div>
+          Avez-vous porté un appareil ou des bagues pour redresser vos dents ? value.appareilDentaireUneFois
+        </div>
+        <div>  
+          ${
+            value.preoccupationDentsOuiNon ? "Préoccupation principale concernant les dents ? `${value.preoccupationDents}`" : ""
+          }
+        </div>
+        <div>
+          ${
+            value.modifierDentsOuiNon ? "Etes-vous satisfait(e) de l’apparence de vos dents et de vos gencives ?`${value.modifierDents}` "
+          }
+        </div>
+        <div>
+          Etes-vous anxieux à l’idée de réaliser des soins dentaires ? value.anxieuxSoinsDentaires
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; row-gap: 10px; width:100%">
+        <div>
+          Etes-vous anxieux à l’idée de réaliser des soins dentaires ? value.anxieuxSoinsDentaires
+        </div>
+        <div>
+          Comment avez-vous connu le cabinet ? value.commentConnaissezVousLeCabinet
+        </div>
+        <div>
+          ${
+            autresRemarquesUtilesOuiNon===true ? "Autres remarques utiles : ${value.autresRemarquesUtiles}"
+          }
+        </div>
+      </div>
+    </article>
+  </div>
+</body>
+</html>

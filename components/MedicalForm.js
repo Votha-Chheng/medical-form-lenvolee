@@ -2,12 +2,15 @@ import { useState } from "react";
 import { SafeAreaView, View, TextInput } from "react-native";
 import DatePicker from "react-native-datepicker";
 import { globalStyles } from "../globalStyles";
+import { useValuesContext } from "../providers/ValuesProvider";
 import Label from "./Label";
 import RadioComponent from "./RadioComponent";
 
-const MedicalForm = ({values, setValues}) => {
+const MedicalForm = () => {
 
   const [lastMedicAppointment, setLastMedicAppointment] = useState(new Date())
+
+  const {values, setValues} = useValuesContext()
 
   const {
     dateDernierExamen, 
@@ -18,7 +21,7 @@ const MedicalForm = ({values, setValues}) => {
   const onDateChange = (event, newDate)=>{
     const selectedDate = newDate || lastMedicAppointment;
     setLastMedicAppointment(selectedDate);
-    setValues({...values, dateDernierExamen : lastMedicAppointment})
+    setValues({...values, dateDernierExamen : selectedDate})
   }
 
   const setValueToTrue = (keyName)=>{

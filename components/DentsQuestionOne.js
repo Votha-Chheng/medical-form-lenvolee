@@ -7,11 +7,14 @@ import SubTitles from './SubTitles'
 import CheckBoxComponent from './CheckBoxComponent'
 import QuestionsAutres from './QuestionsAutres'
 import { RadioButton } from 'react-native-paper'
+import { useValuesContext } from '../providers/ValuesProvider'
 
-const DentsQuestionOne = ({values, setValues}) => {
+const DentsQuestionOne = () => {
   const [raisonExtractionInput, setRaisonExtractionInput] = useState('')
   const [extraRaisonExtraction, setExtraRaisonExtraction] = useState([])
   const [raisonInput, setRaisonInput] = useState("")
+
+  const {values, setValues} = useValuesContext()
 
   const {
     dentsExtraites, 

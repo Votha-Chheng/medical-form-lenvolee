@@ -4,8 +4,11 @@ import SubTitles from './SubTitles';
 import RadioComponent from './RadioComponent';
 import CheckBoxComponent from './CheckBoxComponent';
 import Label from './Label';
+import { useValuesContext } from '../providers/ValuesProvider';
 
-const Gencives = ({values, setValues}) => {
+const Gencives = () => {
+
+  const {values, setValues} = useValuesContext()
 
   const {
     dentsEcartes, 
@@ -68,7 +71,7 @@ const Gencives = ({values, setValues}) => {
         <RadioComponent
           valueState={dentsEcartes} 
           setValueToTrue = {()=>setValueToTrue("dentsEcartes")} 
-          setValueToFalse = {()=>setValueToFalse("dentsEcartes")}
+          setValueToFalse = {()=>setValueToFalse("dentsEcartes", null)}
         />
       </View>
       <View>
@@ -79,7 +82,7 @@ const Gencives = ({values, setValues}) => {
         <RadioComponent
           valueState={saignementGencive} 
           setValueToTrue = {()=>setValueToTrue("saignementGencive")} 
-          setValueToFalse = {()=>setValueToFalse("saignementGencive")}
+          setValueToFalse = {()=>setValueToFalse("saignementGencive", null)}
         />
       </View>
       <View style={{marginBottom:5}}>

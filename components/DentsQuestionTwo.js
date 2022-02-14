@@ -5,10 +5,13 @@ import RadioComponent from './RadioComponent'
 import Label from './Label'
 import QuestionsAutres from './QuestionsAutres'
 import CheckBoxComponent from './CheckBoxComponent'
+import { useValuesContext } from '../providers/ValuesProvider'
 
-const DentsQuestionTwo = ({values, setValues}) => {
+const DentsQuestionTwo = () => {
 
   const [metauxInput, setMetauxInput] = useState("")
+
+  const {values, setValues} = useValuesContext()
 
   const {
     utilisationMetaux, 

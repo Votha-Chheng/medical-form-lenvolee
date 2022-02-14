@@ -5,9 +5,11 @@ import { globalStyles } from '../globalStyles';
 import RadioComponent from './RadioComponent';
 import Label from './Label';
 import TextAreatAjouter from './TextAreatAjouter';
+import { useValuesContext } from '../providers/ValuesProvider';
 
-const Esthetique = ({values, setValues}) => {
+const Esthetique = () => {
 
+  const {values, setValues} = useValuesContext()
 
   const {
     dentsMemeCouleurs,

@@ -4,9 +4,12 @@ import { globalStyles } from '../globalStyles';
 import SubTitles from './SubTitles';
 import RadioComponent from './RadioComponent';
 import Label from './Label';
+import { useValuesContext } from '../providers/ValuesProvider';
 
-const Machoire = ({values, setValues}) => {
+const Machoire = () => {
 
+  const {values, setValues} = useValuesContext()
+  
   const {
     serrementGrincementDents,
     craquementClaquementDouleurOuvertureMachoire,

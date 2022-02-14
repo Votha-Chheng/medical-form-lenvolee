@@ -5,8 +5,11 @@ import { globalStyles } from '../globalStyles';
 import Label from './Label';
 import RadioComponent from './RadioComponent';
 import HabitudesCheckBoxes from './HabitudesCheckBoxes';
+import { useValuesContext } from '../providers/ValuesProvider';
 
-const Habitudes = ({values, setValues}) => {
+const Habitudes = () => {
+
+  const {values, setValues} = useValuesContext()
 
   const {habitudes, mauvaiseHaleine} = values
 
@@ -29,7 +32,6 @@ const Habitudes = ({values, setValues}) => {
           <Label 
             question="Avez-vous l’impression d’avoir une mauvaise haleine ou un mauvais goût dans la bouche ?"
             statement={mauvaiseHaleine}
-            isArray={false}
           />
           <RadioComponent
             valueState ={mauvaiseHaleine}
