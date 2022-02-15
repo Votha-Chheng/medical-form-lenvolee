@@ -219,8 +219,8 @@ const DentsQuestionOne = () => {
               style={{backgroundColor:`${raisonExtractionInput.length>1 ? "green" : "#3798e8"}`, height:40, paddingHorizontal:7.5, paddingTop:7}} 
               onPress={addExtraRaisonExtraction}
             >
-              <Text style={{color:"#fff", fontSize:17.5}}>
-                {raisonExtractionInput.length>1 ? "Appuyer pour valider" : "AJOUTER"}
+              <Text style={{color:"#fff", fontSize:17.5, borderRadius:3}}>
+                {raisonExtractionInput.length>1 ? "VALIDER" : "AJOUTER"}
               </Text>
             </TouchableOpacity>
           </View>

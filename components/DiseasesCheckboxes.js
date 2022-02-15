@@ -33,7 +33,7 @@ const DiseasesCheckboxes = () => {
           <CheckBoxComponent title="Asthme" maladies={maladies} handleChangeValues={handleChangeValues} />
           <CheckBoxComponent title="Maladie cardiaque" maladies={maladies} handleChangeValues={handleChangeValues}/>
           <CheckBoxComponent title="Rhumatisme aigu" maladies={maladies} handleChangeValues={handleChangeValues}/>
-          <CheckBoxComponent title="Chirugie esthétique" maladies={maladies} handleChangeValues={handleChangeValues}/>
+          <CheckBoxComponent title="Chirurgie esthétique" maladies={maladies} handleChangeValues={handleChangeValues}/>
           <CheckBoxComponent title="Maladie du sang" maladies={maladies} handleChangeValues={handleChangeValues}/>
           <CheckBoxComponent title="Thyroïde" maladies={maladies} handleChangeValues={handleChangeValues}/>
           <CheckBoxComponent title="Diabète" maladies={maladies} handleChangeValues={handleChangeValues}/>

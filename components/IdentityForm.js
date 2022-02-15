@@ -243,7 +243,7 @@ const IdentityForm = () => {
         <TextInput 
           keyboardType="email-address" 
           autoCapitalize='none'
-          style={[globalStyles.input, {borderColor:`${email===undefined? "grey":"green"}`, width:250}]}
+          style={[globalStyles.input, {borderColor:`${email===undefined? "grey":"green"}`, width:300}]}
           onChangeText={(text)=>onValidateEmail(text)}
         />
       </View>
@@ -285,7 +285,7 @@ const IdentityForm = () => {
         <TextInput 
           keyboardType ="numeric"
           maxLength={5}
-          style={[globalStyles.input, {borderColor:`${codePostal===undefined? "grey":"green"}`, width:65}]}
+          style={[globalStyles.input, {borderColor:`${codePostal===undefined? "grey":"green"}`, width:85}]}
           onChangeText={(text)=>onValidateCodePostal(text)}
         />
       </View>

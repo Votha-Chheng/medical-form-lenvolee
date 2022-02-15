@@ -40,7 +40,7 @@ const AccueilScreen = ({navigation}) => {
     navigation.navigate("Liste fiches patients")
   }
 
-  const createTwoButtonAlert = () =>
+  const createTwoButtonAlert = () => {
     Alert.alert(
       "Suppression de la liste des fiches patients",
       "Êtes-vous sûr de vouloir supprimer ?",
@@ -55,6 +55,8 @@ const AccueilScreen = ({navigation}) => {
         }
       ]
     );
+  }
+    
 
   return (
     <View style={{flex:1, justifyContent:'center', alignItems:"center"}}>

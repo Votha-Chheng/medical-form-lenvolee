@@ -1,5 +1,5 @@
-import { Text, ScrollView, StyleSheet } from 'react-native'
-import React from 'react'
+import { Text, ScrollView, StyleSheet, Alert } from 'react-native'
+import React, { useEffect } from 'react'
 import Logo from '../components/Logo'
 import Titles from '../components/Titles'
 import IdentityForm from '../components/IdentityForm'
@@ -22,6 +22,33 @@ import { useValuesContext } from '../providers/ValuesProvider'
 const QuestionnaireScreen = ({navigation}) => {
 
   const {values, setValues} = useValuesContext()
+
+  useEffect(()=>{
+    navigation.addListener("beforeRemove", (event)=>{
+
+      if(event.data.action.type==="GO_BACK"){
+        event.preventDefault()
+        createTwoButtonAlert()
+      }
+    })
+  }, [navigation])
+
+  const createTwoButtonAlert = () => {
+    Alert.alert(
+      "Êtes-vous sûr de vouloir revenir à l'accueil ?",
+      "Toutes les données rentrées seront perdues, il faudra recommencer le questionnaire.",
+      [
+        {
+          text: "Annuler",
+          style: "cancel"
+        },
+        { 
+          text: "Revenir à l'accueil", 
+          onPress: ()=>navigation.navigate("Accueil")
+        }
+      ]
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>

@@ -208,6 +208,10 @@ const MedicalFormSecond = () => {
     }
   }
 
+  const setEnceinteToTrue = ()=>{
+    setValues({...values, enceinte: true, moisDeGrossesse:undefined, pilule:null})
+
+  }
   const setEnceinteToFalse = ()=>{
     setValues({...values, enceinte: false, pilule:undefined})
 
@@ -399,7 +403,7 @@ const MedicalFormSecond = () => {
             />
             <RadioComponent 
               valueState={enceinte} 
-              setValueToTrue = {()=>setValueToTrue("enceinte", "moisDeGrossesse")} 
+              setValueToTrue = {setEnceinteToTrue} 
               setValueToFalse = {setEnceinteToFalse}
             />
           </View>

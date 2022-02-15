@@ -72,7 +72,7 @@ export const displayDateNormal = (date)=>{
 
 
 export const getHTML = (value)=>{
-
+ let listeDifficulteDentiste
   const returnOuiNon = (statement)=>{
     if(statement===true){
       return "OUI"
@@ -190,7 +190,7 @@ export const getHTML = (value)=>{
                 <span>${returnOuiNon(value.osteoporose)}</span>
                 ${
                   value.osteoporose===true ?
-                  "<div style='color:red;'>Médicaments contre l'ostéoporose ? "+value.medicOsteoporose.toString()+"</div>"
+                  "<span style='color:red;font-weight: bold'> - Médicaments contre l'ostéoporose : "+value.medicOsteoporose.toString()+"</span>"
                   :
                   ""
                 }
@@ -212,7 +212,7 @@ export const getHTML = (value)=>{
               <li>
                 ${
                   value.difficulteDentiste===true? 
-                  "<span style='font-weight:bold;color:red;'>J'ai rencontré des difficultés particulières lors de précédentes consultations chez le dentiste tels que : " + listeDifficulteDentiste.toString() + "</span>"
+                  "<span style='font-weight:bold;color:red;'>J'ai rencontré des difficultés particulières lors de précédentes consultations chez le dentiste tels que : " + value.listeDifficulteDentiste.toString() + "</span>"
                   :
                   "<span style='font-weight: bold'>Je n'ai pas eu de difficulté particulière lors de précédentes consultations chez le dentiste.</span>"
                 }

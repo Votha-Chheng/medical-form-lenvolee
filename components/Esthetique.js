@@ -20,8 +20,13 @@ const Esthetique = () => {
     souhaitsChangement
   } = values
 
-  const setValueToTrue = (keyName, secondKeyName)=>{
-    setValues({...values, [keyName]:true, [secondKeyName]:undefined})
+  const setValueToTrue = (keyName, secondKeyName=null)=>{
+    if(secondKeyName!==null){
+      setValues({...values, [keyName]:true, [secondKeyName]:undefined})
+    } else {
+      setValues({...values, [keyName]:true})
+    }
+    
   }
   const setValueToFalse = (keyName)=>{
     setValues({...values, [keyName]:false})
@@ -39,7 +44,7 @@ const Esthetique = () => {
           />
           <RadioComponent
             valueState={dentsMemeCouleurs}
-            setValueToTrue={()=>setValueToTrue("dentsMemeCouleurs", null)}
+            setValueToTrue={()=>setValueToTrue("dentsMemeCouleurs")}
             setValueToFalse={()=>setValueToFalse("dentsMemeCouleurs")}
           />
         </View>
@@ -52,7 +57,7 @@ const Esthetique = () => {
           />
           <RadioComponent
             valueState={souhaitDentsPlusBlanches}
-            setValueToTrue={()=>setValueToTrue("souhaitDentsPlusBlanches", null)}
+            setValueToTrue={()=>setValueToTrue("souhaitDentsPlusBlanches")}
             setValueToFalse={()=>setValueToFalse("souhaitDentsPlusBlanches")}
           />
         </View>
@@ -65,7 +70,7 @@ const Esthetique = () => {
           />
           <RadioComponent
             valueState={satisfactionDentsGencives}
-            setValueToTrue={()=>setValueToTrue("satisfactionDentsGencives", null)}
+            setValueToTrue={()=>setValueToTrue("satisfactionDentsGencives")}
             setValueToFalse={()=>setValueToFalse("satisfactionDentsGencives")}
           />
         </View>
@@ -78,7 +83,7 @@ const Esthetique = () => {
           />
           <RadioComponent
             valueState={mainDevantBoucheSourire}
-            setValueToTrue={()=>setValueToTrue("mainDevantBoucheSourire", null)}
+            setValueToTrue={()=>setValueToTrue("mainDevantBoucheSourire")}
             setValueToFalse={()=>setValueToFalse("mainDevantBoucheSourire")}
           />
         </View>

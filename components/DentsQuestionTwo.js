@@ -127,7 +127,7 @@ const DentsQuestionTwo = () => {
               onPress={addMetauxPreference}
             >
               <Text style={{color:"#fff", fontSize:17.5, textAlign:"center"}}>
-                {metauxInput.length>2 ? "Appuyer pour valider" : "AJOUTER"}
+                {metauxInput.length>2 ? "VALIDER" : "AJOUTER"}
               </Text>
             </TouchableOpacity>
           </View>  

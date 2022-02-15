@@ -24,7 +24,11 @@ const ValidationQuestionnaire = ({navigation}) => {
       if(values[value]===undefined){
         temp++
       }  
+      if(values[value]===undefined){
+        console.log(value,":", values[value])
+      }
     }
+
     setQuestionsRestantes(temp)
   }, [values, questionsRestantes])
 
