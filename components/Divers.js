@@ -40,13 +40,13 @@ const Divers = () => {
       <SubTitles title="DIVERS"/>
       <View>
         <Label
-          question="Avez-vous porté un appareil ou des bagues pour redresser vos dents ?"
+          question="Avez-vous déjà porté un appareil ou des bagues pour redresser vos dents ?"
           statement={appareilDentaireUneFois}
         />
         <RadioComponent
           valueState={appareilDentaireUneFois}
           setValueToTrue={()=>setValueToTrue("appareilDentaireUneFois")}
-          setValueToFalse={()=>setValueToFalse("appareilDentaireUneFois")}
+          setValueToFalse={()=>setValueToFalse("appareilDentaireUneFois", null)}
         />
         
       </View>

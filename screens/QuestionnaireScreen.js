@@ -19,7 +19,7 @@ import Divers from '../components/Divers'
 import ValidationQuestionnaire from '../components/ValidationQuestionnaire'
 import { useValuesContext } from '../providers/ValuesProvider'
 
-const QuestionnaireScreen = () => {
+const QuestionnaireScreen = ({navigation}) => {
 
   const {values, setValues} = useValuesContext()
 
@@ -57,7 +57,7 @@ const QuestionnaireScreen = () => {
       <Esthetique values={values} setValues={setValues} />
       <Divers values={values} setValues={setValues}/>
       <Titles title="Valider les réponses du questionnaire"/>
-      <ValidationQuestionnaire values={values}/>
+      <ValidationQuestionnaire values={values} navigation={navigation}/>
     </ScrollView>
   )
 }

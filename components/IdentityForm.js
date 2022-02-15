@@ -10,15 +10,6 @@ import { useValuesContext } from "../providers/ValuesProvider";
 const IdentityForm = () => {
   const [date, setDate] = useState(new Date());
   const [birthDate, setBirthDate] = useState(new Date());
-  const [nomInput, setNomInput] = useState("");
-  const [prenomInput, setPrenomInput] = useState("");
-  const [telInput, setTelInput] = useState("");
-  const [professionInput, setProfessionInput] = useState("");
-  const [adresseInput, setAdresseInput] = useState("");
-  const [emailInput, setEmailInput] = useState("");
-  const [villeInput, setVilleInput] = useState("");
-  const [codePostalInput, setCodePostalInput] = useState("");
-  const [genreInput, setgenreInput] = useState("");
 
   const {values, setValues} = useValuesContext()
 
@@ -73,6 +64,15 @@ const IdentityForm = () => {
   const onValidateNothing = (value, keyToString, inputSetter)=>{
     setValues({...values, [keyToString] : value})
     inputSetter(value)
+  }
+
+  const onValidateName = (text, keyName)=>{
+    if(text.length<1){
+      setValues({...values, [keyName]:undefined})
+    } else {
+      setValues({...values, [keyName]:text})
+    }
+    
   }
 
   const onValidateNumber = (text)=>{
@@ -180,13 +180,12 @@ const IdentityForm = () => {
         <TextInput 
           style={[globalStyles.input,{borderWidth:2, width:250, marginLeft:25, marginTop:5, borderColor:`${nom === undefined ? "red":"green"}`}]} 
           placeholder="Nom de famille"
-          onChangeText={(text)=>onValidateNothing(text, 'nom', setNomInput)}
-          value={nomInput}
+          onChangeText={(text)=>onValidateName(text, "nom")}
         />
         <TextInput 
           style={[globalStyles.input, {borderWidth:2, width:250, marginTop:5, borderColor:`${prenom === undefined ? "red":"green"}`}]} 
           placeholder="Prénom"
-          onChangeText={(text)=>setValues({...values, prenom:text})}
+          onChangeText={(text)=>onValidateName(text, "prenom")}
         />
       </View> 
       <View style={[globalStyles.flexRow, { marginVertical:20}]}>
@@ -231,7 +230,7 @@ const IdentityForm = () => {
         />
         <TextInput
           keyboardType="numeric"
-          style={[globalStyles.input, {width:125, borderColor:`${tel===undefined? "grey":"green"}`}]}
+          style={[globalStyles.input, {width:160, borderColor:`${tel===undefined? "grey":"green"}`}]}
           maxLength={10}
           onChangeText={(text)=>onValidateNumber(text)}
         />
@@ -252,11 +251,10 @@ const IdentityForm = () => {
         <Label
           question="Profession "
           statement={profession}
-          onChangeText={(text)=>setValues({...values, profession:text})}
         />
         <TextInput 
           style={[globalStyles.input, {borderColor:`${profession===undefined? "grey":"green"}`, width:250}]}
-          onChangeText={(text)=>setValues({...values, profession:text})}
+          onChangeText={(text)=>onValidateName(text, "profession")}
         />
       </View>
       <View style={{marginBottom:20}}>
@@ -266,7 +264,7 @@ const IdentityForm = () => {
         />
         <TextInput 
           style={[globalStyles.input, {borderColor:`${adresse===undefined? "grey":"green"}`, width:"95%"}]}
-          onChangeText={(text)=>(adresse && adresse.length>1) || text.length>1 ? setValues({...values, adresse:text}) : setValues({...values, adresse:undefined})}
+          onChangeText={(text)=>onValidateName(text, "adresse")}
         />
       </View>
       <View style={globalStyles.flexRow}>
@@ -276,7 +274,7 @@ const IdentityForm = () => {
         />
         <TextInput 
           style={[globalStyles.input, {borderColor:`${ville===undefined? "grey":"green"}`, width:300}]}
-          onChangeText={(text)=>text.length<1 ? setValues({...values, ville:undefined}) : setValues({...values, ville:text})}
+          onChangeText={(text)=>onValidateName(text, 'ville')}
         />
       </View>
       <View style={globalStyles.flexRow}>

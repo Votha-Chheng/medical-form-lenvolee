@@ -1,14 +1,30 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const MerciScreen = () => {
+const MerciScreen = ({navigation}) => {
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      navigation.navigate("Accueil")
+    }, 10000)
+  }, [])
+
   return (
-    <View>
-      <Text>Merci de votre patience. Vous pouvez redonnez la tablette à notre Assistante à l'accueil.</Text>
+    <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+      <Text style={styles.text}>Merci d'avoir pris le temps de remplir ce questionnaire.</Text>
+      <Text style={styles.text}>Veuillez remettre la tablette à notre Assistante à l'accueil.</Text>
     </View>
   )
 }
 
 export default MerciScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  text :{
+    fontSize:40, 
+    fontWeight:"bold", 
+    textAlign:'center', 
+    padding:7.5,
+    color:"#363C51"
+  }
+})

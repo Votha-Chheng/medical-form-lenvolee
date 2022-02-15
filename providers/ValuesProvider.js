@@ -6,7 +6,7 @@ const ValuesProvider = ({children})=>{
 
   const [values, setValues] = useState({
     dr:"Sylvie MA-Francin",
-    dateRdv : new Date(),
+    dateRdv : new Date().toDateString(),
     genre : "Madame",
     nom : undefined, //
     prenom:undefined, //

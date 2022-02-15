@@ -383,7 +383,7 @@ const MedicalFormSecond = () => {
             <TextInput 
               style={[globalStyles.input, {width:40, textAlign:'center', marginTop:-10}]}
               keyboardType='numeric' 
-              onChangeText={(text)=>setValues({...values, cigarettesParJour: +text})}
+              onChangeText={(text)=>setValues({...values, cigarettesParJour: text})}
             />
           </View>
         }  

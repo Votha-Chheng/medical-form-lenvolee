@@ -39,7 +39,7 @@ const Esthetique = () => {
           />
           <RadioComponent
             valueState={dentsMemeCouleurs}
-            setValueToTrue={()=>setValueToTrue("dentsMemeCouleurs")}
+            setValueToTrue={()=>setValueToTrue("dentsMemeCouleurs", null)}
             setValueToFalse={()=>setValueToFalse("dentsMemeCouleurs")}
           />
         </View>
@@ -52,7 +52,7 @@ const Esthetique = () => {
           />
           <RadioComponent
             valueState={souhaitDentsPlusBlanches}
-            setValueToTrue={()=>setValueToTrue("souhaitDentsPlusBlanches")}
+            setValueToTrue={()=>setValueToTrue("souhaitDentsPlusBlanches", null)}
             setValueToFalse={()=>setValueToFalse("souhaitDentsPlusBlanches")}
           />
         </View>
@@ -65,7 +65,7 @@ const Esthetique = () => {
           />
           <RadioComponent
             valueState={satisfactionDentsGencives}
-            setValueToTrue={()=>setValueToTrue("satisfactionDentsGencives")}
+            setValueToTrue={()=>setValueToTrue("satisfactionDentsGencives", null)}
             setValueToFalse={()=>setValueToFalse("satisfactionDentsGencives")}
           />
         </View>
@@ -78,7 +78,7 @@ const Esthetique = () => {
           />
           <RadioComponent
             valueState={mainDevantBoucheSourire}
-            setValueToTrue={()=>setValueToTrue("mainDevantBoucheSourire")}
+            setValueToTrue={()=>setValueToTrue("mainDevantBoucheSourire", null)}
             setValueToFalse={()=>setValueToFalse("mainDevantBoucheSourire")}
           />
         </View>

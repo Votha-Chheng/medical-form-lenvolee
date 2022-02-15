@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-native-paper'
 import { useValuesContext } from '../providers/ValuesProvider'
@@ -40,11 +40,27 @@ const AccueilScreen = ({navigation}) => {
     navigation.navigate("Liste fiches patients")
   }
 
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Suppression de la liste des fiches patients",
+      "Êtes-vous sûr de vouloir supprimer ?",
+      [
+        {
+          text: "Annuler",
+          style: "cancel"
+        },
+        { 
+          text: "Supprimer la liste", 
+          onPress: ()=>{AsyncStorage.removeItem("Patientèle")}
+        }
+      ]
+    );
+
   return (
     <View style={{flex:1, justifyContent:'center', alignItems:"center"}}>
 
       {
-        !locked ?
+        locked ?
         <View style={{alignItems:"center"}}>
           <Text style={[globalStyles.label, {color:"black"}]} >
             Tapez le mot de passe :
@@ -64,7 +80,7 @@ const AccueilScreen = ({navigation}) => {
         </View>
         :
         <View>
-          <Text style={[styles.text, {marginBottom:50}]}>Accueil</Text>
+          <Text style={[styles.text, {marginBottom:50, textAlign:'center'}]}>Accueil</Text>
           <Button
             mode="contained"
             onPress={pressNouveauPatient}
@@ -88,7 +104,7 @@ const AccueilScreen = ({navigation}) => {
             <Button
               mode='contained'
               dark={true}
-              onPress={()=>{AsyncStorage.removeItem("Patientèle")}}
+              onPress={createTwoButtonAlert}
               style={{backgroundColor:"red", width:600, height:50}}
               labelStyle={{fontSize:17, flex:1, justifyContent:"center", paddingHorizontal:0}}
             >

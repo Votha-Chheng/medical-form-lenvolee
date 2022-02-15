@@ -35,8 +35,8 @@ const Habitudes = () => {
           />
           <RadioComponent
             valueState ={mauvaiseHaleine}
-            setValueToTrue={setMauvaiseHaleineToTrue}
-            setValueToFalse={setMauvaiseHaleineToFalse}
+            setValueToTrue={()=>setMauvaiseHaleineToTrue()}
+            setValueToFalse={()=>setMauvaiseHaleineToFalse()}
           />
         </View>
       </View>  
