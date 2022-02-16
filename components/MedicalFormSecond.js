@@ -62,7 +62,6 @@ const MedicalFormSecond = () => {
         setValues({...values, medicamentsActuels: temp})
 
       }
-
     } else {
 
       if(isChecked){
@@ -79,7 +78,6 @@ const MedicalFormSecond = () => {
           setValues({...values, medicamentsActuels: temp})
 
         }
-        
       }
     }
   }
@@ -109,8 +107,7 @@ const MedicalFormSecond = () => {
       setValues({...values, medicamentsActuels: undefined})
     } else {
       setValues({...values, medicamentsActuels: tempState})
-    }
-    
+    }  
   }
 
   //Allergies
@@ -137,8 +134,7 @@ const MedicalFormSecond = () => {
           setValues({...values, allergiesListe: temp})
         }
       }
-    }
-    
+    }  
   }
 
   const addAllergie = ()=>{
@@ -169,8 +165,7 @@ const MedicalFormSecond = () => {
     } else {
       setValues({...values, allergiesListe: tempState})
 
-    }
-    
+    }  
   }
 
   //Médicaments ostéoporose
