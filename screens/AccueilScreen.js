@@ -107,10 +107,21 @@ const AccueilScreen = ({navigation}) => {
               mode='contained'
               dark={true}
               onPress={createTwoButtonAlert}
-              style={{backgroundColor:"red", width:600, height:50}}
+              style={{backgroundColor:"red", width:600, height:50, marginBottom:50}}
               labelStyle={{fontSize:17, flex:1, justifyContent:"center", paddingHorizontal:0}}
             >
               Supprimer les précédentes listes de patients
+            </Button>
+          </View>
+          <View>
+            <Button
+              mode='contained'
+              dark={true}
+              onPress={()=>setLocked(true)}
+              style={{width:600, height:50}}
+              labelStyle={{fontSize:17, flex:1, justifyContent:"center", paddingHorizontal:0}}
+            >
+              Verrouiller l'écran d'Accueil
             </Button>
           </View>
         </View>

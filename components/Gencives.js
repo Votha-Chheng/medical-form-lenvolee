@@ -27,8 +27,12 @@ const Gencives = () => {
     
   }
 
-  const setValueToFalse = (keyName, nextKey, isArray)=>{
-    setValues({...values, [keyName]: false, [nextKey]:`${isArray? []: null}`})
+  const setValueToFalse = (keyName, nextKey=null, isArray=false)=>{
+    if(nextKey!==null){
+      setValues({...values, [keyName]: false, [nextKey]:`${isArray? []: null}`})
+    } else {
+      setValues({...values, [keyName]: false})
+    }  
   }
 
   const addRadioTypesTraitement = (isChecked, nameTraitement)=>{
@@ -71,7 +75,7 @@ const Gencives = () => {
         <RadioComponent
           valueState={dentsEcartes} 
           setValueToTrue = {()=>setValueToTrue("dentsEcartes")} 
-          setValueToFalse = {()=>setValueToFalse("dentsEcartes", null)}
+          setValueToFalse = {()=>setValueToFalse("dentsEcartes")}
         />
       </View>
       <View>
@@ -82,7 +86,7 @@ const Gencives = () => {
         <RadioComponent
           valueState={saignementGencive} 
           setValueToTrue = {()=>setValueToTrue("saignementGencive")} 
-          setValueToFalse = {()=>setValueToFalse("saignementGencive", null)}
+          setValueToFalse = {()=>setValueToFalse("saignementGencive")}
         />
       </View>
       <View style={{marginBottom:5}}>

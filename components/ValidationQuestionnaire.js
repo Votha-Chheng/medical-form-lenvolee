@@ -24,7 +24,7 @@ const ValidationQuestionnaire = ({navigation}) => {
       if(values[value]===undefined){
         temp++
       }  
-      if(values[value]===undefined){
+      if(value==="null"|| value===null){
         console.log(value,":", values[value])
       }
     }
@@ -35,7 +35,11 @@ const ValidationQuestionnaire = ({navigation}) => {
   const gestionValidation = ()=>{
     let temp = []
     for(let value in values) {
-      temp = [...temp, values[value]]
+      if(value==="null"|| value===null){
+        temp = [...temp]
+      } else {
+        temp = [...temp, values[value]]
+      }  
     }
 
     if(temp.includes(undefined)){
