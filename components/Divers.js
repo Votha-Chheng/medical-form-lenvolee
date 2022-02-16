@@ -54,7 +54,7 @@ const Divers = () => {
         <TextAreatAjouter
           values={values}
           setValues={setValues}
-          questionOuiNon="Avez-vous des préoccuppations particulières convernant vos dents ?"
+          questionOuiNon="Avez-vous des préoccuppations particulières concernant vos dents ?"
           questionDescription="Décrivez ces préoccupations "
           inputPlaceholder="Décrivez ici ces préocuppations"
           stateOuiNon={preoccupationDentsOuiNon}

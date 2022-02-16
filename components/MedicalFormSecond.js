@@ -263,7 +263,7 @@ const MedicalFormSecond = () => {
               <CheckBoxComponent title="Aspirine" maladies={medicamentsActuels} handleChangeValues={addRadioExtraMedic}/>    
             </View>
             <View style={{marginHorizontal:25}}>
-              <CheckBoxComponent title="Traitement pour la tension artérielle" maladies={medicamentsActuels} handleChangeValues={addRadioExtraMedic}/>
+              <CheckBoxComponent title="Traitement pour tension artérielle" maladies={medicamentsActuels} handleChangeValues={addRadioExtraMedic}/>
               <CheckBoxComponent title="Cortisone" maladies={medicamentsActuels} handleChangeValues={addRadioExtraMedic}/>
               <CheckBoxComponent title="Insuline" maladies={medicamentsActuels} handleChangeValues={addRadioExtraMedic}/>
             </View>
@@ -319,7 +319,7 @@ const MedicalFormSecond = () => {
             />
             <View style={[globalStyles.flexRow, {alignItems:"flex-start"}]}>
               <View style={{marginHorizontal:5}}>
-                <CheckBoxComponent title="Anesthésique local du Dentiste" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>
+                <CheckBoxComponent title="Anesthésique local du dentiste" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>
                 <CheckBoxComponent title="Iode et produits dérivés" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>
                 <CheckBoxComponent title="Métal" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>
                 <CheckBoxComponent title="Antibiotique" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>    
@@ -327,8 +327,8 @@ const MedicalFormSecond = () => {
               </View>
               <View style={{marginHorizontal:10}}>
                 <CheckBoxComponent title="Barbituriques" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>
-                <CheckBoxComponent title="Anti-inflammatoire ou aspirine" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>
-                <CheckBoxComponent title="Neuroleptique ou somnifère" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>
+                <CheckBoxComponent title="Anti-inflammatoire/aspirine" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>
+                <CheckBoxComponent title="Neuroleptique/somnifère" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>
                 <CheckBoxComponent title="Codéine" maladies={allergiesListe} handleChangeValues={addRadioAllergies}/>
               </View>
             </View>
