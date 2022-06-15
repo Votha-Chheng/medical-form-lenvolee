@@ -18,6 +18,7 @@ import Esthetique from '../components/Esthetique'
 import Divers from '../components/Divers'
 import ValidationQuestionnaire from '../components/ValidationQuestionnaire'
 import { useValuesContext } from '../providers/ValuesProvider'
+import { globalStyles } from '../globalStyles'
 
 const QuestionnaireScreen = ({navigation}) => {
 
@@ -51,22 +52,22 @@ const QuestionnaireScreen = ({navigation}) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={globalStyles.container}>
       <Logo/>
       <Titles title="Questionnaire médical" />
-      <Text style={styles.texte}>
+      <Text style={globalStyles.texte}>
         Afin de vous soigner en toute sécurité, un historique détaillé de votre état de santé générale et dentaire est de la plus grande importance. C’est pourquoi nous vous remercions de répondre avec soin aux questions suivantes. Ces informations resteront strictement confidentielles. Par ailleurs, nous discuterons ensemble de cet historique en détails. 
       </Text>
-      <Text style={styles.texteMiddle}>
+      <Text style={globalStyles.texteMiddle}>
         N’hésitez pas à vous adresser à mon assistante ou à moi-même pour vous aider à le remplir.
       </Text>
-      <Text style={[styles.texteMiddle, {color:"red", fontWeight:"bold", textDecorationLine:"underline", marginBottom:-10}]}>
+      <Text style={[globalStyles.texteMiddle, {color:"red", fontWeight:"bold", textDecorationLine:"underline", marginBottom:-10}]}>
         Attention : 
       </Text>
-      <Text style={[styles.texteMiddle, {color:"red", fontWeight:"bold"}]}>
+      <Text style={[globalStyles.texteMiddle, {color:"red", fontWeight:"bold"}]}>
         Toutes les questions surlignés en rouge demandent une réponse obligatoire.
       </Text>
-      <Titles title="Votre dentité" />
+      <Titles title="Votre identité" />
       <IdentityForm values={values} setValues={setValues}/>
       <Titles title="Historique médical" />
       <MedicalForm values={values} setValues={setValues}/>
@@ -89,24 +90,5 @@ const QuestionnaireScreen = ({navigation}) => {
   )
 }
 
-const styles = StyleSheet.create({
-  texte: {
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    letterSpacing : 1.25,
-    fontSize:17,
-    textAlign:"justify",
-    lineHeight : 25
-  },
-  texteMiddle: {
-    paddingBottom: 10,
-    paddingTop:0,
-    paddingHorizontal: 25,
-    letterSpacing : 1.25,
-    fontSize:17,
-    textAlign:"justify",
-    lineHeight : 25
-  },
-});
 
 export default QuestionnaireScreen

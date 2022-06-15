@@ -22,6 +22,7 @@ import QuestionnaireScreen from './screens/QuestionnaireScreen';
 import MerciScreen from './screens/MerciScreen';
 import ValuesProvider from './providers/ValuesProvider';
 import ListFichesPatients from './screens/ListFichesPatients';
+import QuestionnaireEnfantScreen from './screens/QuestionnaireEnfantScreen';
 
 export default function App() {
 
@@ -54,6 +55,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="Accueil" component={AccueilScreen}/>
           <Stack.Screen name="Questionnaire médical" options={{headerShown:false}} component={QuestionnaireScreen}/>
+          <Stack.Screen name="Questionnaire enfant" options={{headerShown:false}} component={QuestionnaireEnfantScreen}/>
           <Stack.Screen name="Merci" component={MerciScreen} options={{headerShown:false}}/>
           <Stack.Screen name="Liste fiches patients" component={ListFichesPatients}/>
         </Stack.Navigator>

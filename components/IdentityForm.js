@@ -61,10 +61,10 @@ const IdentityForm = () => {
     setValues({...values, dateDeNaissance : selectedDate})
   }
 
-  const onValidateNothing = (value, keyToString, inputSetter)=>{
-    setValues({...values, [keyToString] : value})
-    inputSetter(value)
-  }
+  // const onValidateNothing = (value, keyToString, inputSetter)=>{
+  //   setValues({...values, [keyToString] : value})
+  //   inputSetter(value)
+  // }
 
   const onValidateName = (text, keyName)=>{
     if(text.length<1){

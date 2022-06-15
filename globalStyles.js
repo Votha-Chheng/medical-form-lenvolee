@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const globalStyles = StyleSheet.create({
   container : {
-    paddingLeft:10,
+    paddingHorizontal:10,
     paddingTop: 10
   },
   label : {
@@ -23,6 +23,23 @@ export const globalStyles = StyleSheet.create({
     paddingHorizontal:5, 
     marginLeft:7.5, 
     borderWidth:2
+  },
+  texte: {
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    letterSpacing : 1.25,
+    fontSize:17,
+    textAlign:"justify",
+    lineHeight : 25
+  },
+  texteMiddle: {
+    paddingBottom: 10,
+    paddingTop:0,
+    paddingHorizontal: 25,
+    letterSpacing : 1.25,
+    fontSize:17,
+    textAlign:"justify",
+    lineHeight : 25
   }
 });
 

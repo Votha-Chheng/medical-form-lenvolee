@@ -4,6 +4,19 @@ const ValuesContext = createContext()
 
 const ValuesProvider = ({children})=>{
 
+  const [nom, setNom] = useState(undefined)
+  const [prenom, setPrenom] = useState(undefined)
+  const [age, setAge] = useState(undefined)
+  const [adresse, setAdresse] = useState(undefined)
+  const [codePostal, setCodePostal] = useState(undefined)
+  const [ville, setVille] = useState(undefined)
+  const [hasAPhoneNumber, setHasAPhoneNumber] = useState(false)
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [nbFrat, setNbFrat] = useState(0)
+  const [fratSituation, setFratSituation] = useState("")
+  const [niveauScolaire, setNiveauScolaire] = useState("")
+  const [loisir, setLoisir] = useState([])
+
   const [values, setValues] = useState({
     dr:"Sylvie MA-Francin",
     dateRdv : new Date().toDateString(),
@@ -175,7 +188,19 @@ const ValuesProvider = ({children})=>{
   const contextValue = {
     values,
     setValues,
-    resetValues
+    resetValues,
+    nom, setNom,
+    prenom, setPrenom,
+    age, setAge,
+    adresse, setAdresse,
+    codePostal, setCodePostal,
+    ville, setVille,
+    hasAPhoneNumber, setHasAPhoneNumber,
+    phoneNumber, setPhoneNumber,
+    nbFrat, setNbFrat,
+    fratSituation, setFratSituation,
+    niveauScolaire, setNiveauScolaire,
+    loisir, setLoisir
   }
 
   return <ValuesContext.Provider value={contextValue}>

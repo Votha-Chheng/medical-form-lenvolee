@@ -35,6 +35,10 @@ const AccueilScreen = ({navigation}) => {
     resetValues()
     navigation.navigate("Questionnaire médical")
   }
+  const pressNouveauPatientEnfant = ()=>{
+    resetValues()
+    navigation.navigate("Questionnaire enfant")
+  }
 
   const pressToListePatients = ()=>{
     navigation.navigate("Liste fiches patients")
@@ -91,6 +95,14 @@ const AccueilScreen = ({navigation}) => {
           >
             Questionnaire Nouveau patient
           </Button>
+          {/* <Button
+            mode="contained"
+            onPress={pressNouveauPatientEnfant}
+            style={{backgroundColor:"#1C9CEB", width:600, height:50, marginBottom:50}}
+            labelStyle={{fontSize:20, flex:1, justifyContent:"center", paddingHorizontal:0}}
+          >
+            Questionnaire Enfant
+          </Button> */}
           <View>
             <Button
               mode='contained'
